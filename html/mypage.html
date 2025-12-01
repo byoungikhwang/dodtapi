@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>사용자 마이 페이지</title>
+    <style>
+        body { font-family: sans-serif; line-height: 1.6; margin: 20px; background-color: #f4f4f4; color: #333; }
+        .container { max-width: 1200px; margin: auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h1, h2 { color: #0056b3; }
+        .section { margin-bottom: 30px; padding: 20px; border: 1px solid #ddd; border-radius: 5px; }
+        .item-card { background-color: #f9f9f9; border: 1px solid #eee; padding: 15px; margin-bottom: 10px; border-radius: 5px; display: flex; justify-content: space-between; align-items: center; }
+        .item-card button { margin-left: 10px; padding: 5px 10px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>사용자 마이 페이지</h1>
+
+        <div class="section">
+            <h2>생성 히스토리 조회</h2>
+            <p>이전에 생성된 4컷 이미지 및 MP4 영상 목록이 여기에 표시됩니다.</p>
+            <div class="history-list">
+                <div class="item-card">
+                    <span>생성일: 2025-12-01, 의상: 버블 헴 드레스 (4컷 이미지)</span>
+                    <div>
+                        <button>다운로드</button>
+                        <button>재생성</button>
+                        <button>수정</button>
+                        <button>삭제</button>
+                    </div>
+                </div>
+                <div class="item-card">
+                    <span>생성일: 2025-11-28, 의상: 가죽 자켓 (MP4 영상)</span>
+                    <div>
+                        <button>다운로드</button>
+                        <button>재생성</button>
+                        <button>수정</button>
+                        <button>삭제</button>
+                    </div>
+                </div>
+                <div class="item-card">
+                    <span>생성일: 2025-11-25, 의상: 겨울 코트 (4컷 이미지)</span>
+                    <div>
+                        <button>다운로드</button>
+                        <button>재생성</label>
+                        <button>수정</button>
+                        <button>삭제</button>
+                    </div>
+                </div>
+                <p> (Vrew 모델을 참고한 UI)</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>4컷 이미지 / MP4 파일 다운로드</h2>
+            <p>생성된 콘텐츠를 다운로드할 수 있는 기능입니다. (히스토리 목록 내 버튼으로 통합)</p>
+        </div>
+        <div class="section">
+            <h2>재생성, 수정, 삭제 기능 UI</h2>
+            <p>생성된 콘텐츠를 재생성, 수정, 삭제할 수 있는 UI입니다. (히스토리 목록 내 버튼으로 통합)</p>
+        </div>
+    </div>
+</body>
+</html>

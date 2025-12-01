@@ -1,0 +1,21 @@
+{
+  "title": "오늘 무엇을 입을까? - 4컷 이미지 및 24초 숏폼 콘텐츠 생성 프롬프트",
+  "description": "스크래핑 트렌드 데이터, 유저 요청, 그리고 확정된 디자인 가이드라인을 기반으로 4컷 이미지의 시각화 프롬프트와 24초 숏폼 영상 편집에 필요한 스크립트를 생성합니다.",
+  "model": "gemini-2.5-pro",
+  "systemInstruction": "당신은 가상 피팅(Virtual Fitting) 기반 패션 웹페이지의 AI 스타일링 에디터입니다. 제공된 모든 디자인 철학(Hermès/Loewe의 여백, Balenciaga의 극적 대비, Gentle Monster의 키네틱 비주얼)을 통합하여, Canva 자동 생성 및 24초 숏폼 편집에 최적화된 JSON 구조를 생성해야 합니다. 유저가 원하는 '극도의 디테일'과 '트렌디한 숏폼 스타일'을 모두 충족시켜야 합니다.",
+  "config": {
+    "temperature": 0.85,
+    "maxOutputTokens": 4096,
+    "responseMimeType": "application/json"
+  },
+  "contents": [
+    {
+      "role": "user",
+      "parts": [
+        {
+          "text": "다음은 n8n 파이프라인의 초기 입력 데이터입니다. 이 데이터를 기반으로 **4컷 이미지**와 **24초 숏폼 영상** 제작에 필요한 모든 상세 콘텐츠 정보를 JSON 형식으로 생성해 주세요.\n\n### 1. 입력 데이터\n\n* **Trend ID**: {{input.trend_id}}\n* **Outfit Name**: {{input.scraped_data.outfit_name}} (예: 버블 헴 드레스)\n* **Core Keywords**: {{input.scraped_data.keywords}} (예: #Volume #Sculptural #LoudLuxury)\n* **User Style Request**: {{input.user_prompt}} (예: {{input.user_prompt}} 스타일로 최대한 시크하게 연출)\n\n### 2. 요구되는 출력 JSON 구조 및 상세 내용\n\n1.  **4컷 이미지 디테일 (Canva/AI 이미지 생성 프롬프트)**: 정면, 좌측, 우측, 뒷면 4가지 뷰에 대해 각각의 시각적 초점(Focus)과 Canva에 오버레이될 텍스트(Title/Subtitle)를 생성합니다. 'Loewe의 여백'과 'Hermès 그리드'를 디자인 미학적 요소로 반드시 언급합니다.\n2.  **24초 숏폼 영상 스크립트 (Python/FFmpeg 편집 로직 입력)**: 8초 원본 영상을 24초로 확장하는 전략을 포함하여, 트렌디한 자막(Subtitle)과 컷 전환 타이밍을 초 단위로 상세히 명시합니다. (예: 0.8초에 첫 번째 컷 전환, 3.0초에 자막 등장 등)\n\n생성된 모든 텍스트는 **트렌디하고 간결한 숏폼 스타일**을 따라야 합니다. 최종 출력은 반드시 JSON 객체여야 합니다."
+        }
+      ]
+    }
+  ]
+}

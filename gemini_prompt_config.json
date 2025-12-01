@@ -1,0 +1,21 @@
+{
+  "title": "오늘 무엇을 입을까? - 4컷 이미지 및 24초 숏폼 콘텐츠 생성 프롬프트",
+  "description": "스크래핑된 최신 패션 트렌드 데이터를 기반으로, 유저에게 제공할 4컷 이미지의 시각 자료 설명과 24초 숏폼 영상에 사용될 트렌디한 자막, 핵심 스타일링 코멘트를 생성 요청합니다. Canva 디자인 가이드를 준수합니다.",
+  "model": "gemini-2.5-pro",
+  "systemInstruction": "당신은 최신 패션 트렌드를 전문적으로 분석하고, 이를 시각적 콘텐츠(4컷 이미지 및 24초 숏폼 영상) 제작에 최적화된 형태로 구조화하는 AI 스타일링 에디터입니다. 유저가 제공하는 스크래핑 데이터와 개인 스타일 요청을 통합하여, 'Hermès/Loewe의 여백'과 'Balenciaga의 극적 대비'를 활용한 Canva 디자인 가이드에 맞는 콘텐츠를 생성하십시오. 생성 결과는 JSON 형식으로만 응답해야 하며, 이는 후속 파이프라인(4컷 이미지 생성, 24초 영상 편집)의 입력값으로 사용됩니다.",
+  "config": {
+    "temperature": 0.8,
+    "maxOutputTokens": 4096,
+    "responseMimeType": "application/json"
+  },
+  "contents": [
+    {
+      "role": "user",
+      "parts": [
+        {
+          "text": "다음 정보를 기반으로, 4컷 이미지용 시각화 아이디어와 24초 숏폼 영상용 편집 소스를 생성해 주세요.\n\n### 1. 입력 데이터 (스크래핑 및 유저 요청)\n\n* **스크래핑 트렌드**: {{scraped_data.outfit_name}} (예: 버블 헴 드레스)\n* **핵심 키워드**: {{scraped_data.keywords}} (예: #Volume #BubbleHem #Sculptural)\n* **스크래핑 원본 이미지 URL**: {{scraped_data.image_url}}\n* **유저 요청 스타일**: {{user_prompt}} (예: 시크하고 모던한 스타일로 연출해 줘.)\n\n### 2. 출력 포맷 (JSON)\n\n{\n  \"outfit_name\": \"{{scraped_data.outfit_name}}\",\n  \"content_version\": \"v1.0\",\n  \"image_4cut_details\": [\n    {\n      \"cut_index\": 1,\n      \"view\": \"정면\",\n      \"prompt_focus\": \"전체 실루엣과 {{scraped_data.outfit_name}}의 구조적 특징 강조. (Loewe 스타일 여백 필수)\",\n      \"canva_text_overlay\": \"오늘의 트렌드: {{scraped_data.outfit_name}}\"\n    },\n    {\n      \"cut_index\": 2,\n      \"view\": \"좌측면/디테일\",\n      \"prompt_focus\": \"소재의 질감 및 미세한 주름 표현. {{user_prompt}}를 반영한 텍스처 디테일. (젠틀몬스터 키네틱 비주얼 참고)\",\n      \"canva_text_overlay\": \"키워드: {{scraped_data.keywords}}\"\n    },\n    {\n      \"cut_index\": 3,\n      \"view\": \"우측면/코디네이션\",\n      \"prompt_focus\": \"가방, 신발 등 전체 룩의 코디네이션 및 컬러 매치. (SSENSE 매거진형 레이아웃 참고)\",\n      \"canva_text_overlay\": \"AI가 제안하는 스타일링 팁.\"\n    },\n    {\n      \"cut_index\": 4,\n      \"view\": \"뒷면/워터마크\",\n      \"prompt_focus\": \"뒷면 핏과 워터마크(타이틀/로고) 배치 시안. (Hermès 그리드에 맞춰 정갈하게)\",\n      \"canva_text_overlay\": \"#오늘무엇을입을까\"\n    }\n  ],\n  \"video_24s_script\": {\n    \"title\": \"{{scraped_data.outfit_name}} 숏폼 트렌드 리포트\",\n    \"bmg_mood\": \"트렌디하고 경쾌한 BGM\",\n    \"scene_details\": [\n      {\n        \"time_sec\": \"0.0-0.8\",\n        \"visual\": \"인트로 타이틀/로고\",\n        \"subtitle_text\": \"오늘의 가장 핫한 트렌드는?\"\n      },\n      {\n        \"time_sec\": \"0.8-3.0\",\n        \"visual\": \"정면 컷 (4컷 이미지 #1) 클로즈업\",\n        \"subtitle_text\": \"{{scraped_data.outfit_name}}의 구조적인 볼륨감.\"\n      },\n      {\n        \"time_sec\": \"3.0-5.5\",\n        \"visual\": \"컷 전환 및 디테일 (4컷 이미지 #2)\",\n        \"subtitle_text\": \"AI 핏 시뮬레이션으로 완벽한 핏을 확인하세요.\"\n      },\n      {\n        \"time_sec\": \"5.5-8.0\",\n        \"visual\": \"다양한 코디네이션 컷 (4컷 이미지 #3)\",\n        \"subtitle_text\": \"{{user_prompt}}에 딱 맞는 코디네이션.\"\n      },\n      {\n        \"time_sec\": \"8.0-24.0\",\n        \"visual\": \"(8초 원본 영상 소스 사용) 빠른 컷 전환, 자막 및 배경 음악 적용, 최종 인코딩\",\n        \"subtitle_text\": \"(FFmpeg 편집 로직에서 최종 자막 및 효과 적용)\"\n      }\n    ]\n  }\n}"
+        }
+      ]
+    }
+  ]
+}
