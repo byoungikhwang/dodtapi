@@ -41,55 +41,15 @@ async def generate_content(request_data: GenerationRequest):
     유저의 요청에 따라 Gemini 프롬프트를 구성하고 n8n 파이프라인을 트리거합니다.
     """
     try:
-        # 1. DB 또는 스크래핑 모듈에서 트렌드 데이터 가져오기
+        # 1. DB 또는 스크래핑 모듈에서 트렌드 데이터 가져오기 (이 부분은 Mock Data로 대체)
         # 실제 개발 시, trend_id를 사용하여 DB에서 outfit_name, keywords, image_url 등을 조회해야 함.
         # 이 단계에서 스크래핑/DB 조회가 Python 로직에서 발생합니다.
+        scraped_data_mock = {
+            "outfit_name": "버블 헴 드레스",
+            "keywords": "#Volume #BubbleHem #Sculptural",
+            "image_url": "http://example.com/bubble-dress.jpg"
+        }
 
-        # TODO: 여기에 실제 DB 연결 및 쿼리 로직 구현
-        # 예:
-        # import psycopg2
-        # conn = psycopg2.connect(DATABASE_URL)
-        # cur = conn.cursor()
-        # cur.execute("SELECT outfit_name, keywords, image_url_source FROM trend_daily_update WHERE trend_id = %s", (request_data.trend_id,))
-        # trend_data = cur.fetchone()
-        # if not trend_data:
-        #     raise HTTPException(status_code=404, detail=f"Trend with ID {request_data.trend_id} not found.")
-        # scraped_data = {
-        #     "outfit_name": trend_data[0],
-        #     "keywords": trend_data[1],
-        #     "image_url": trend_data[2]
-        # }
-        # conn.close()
-
-        # Mock 데이터 대신 실제 DB 연동 로직이 들어갈 자리 (현재는 Mock 데이터 반환)
-        def get_trend_data_from_db(trend_id: str):
-            """
-            Placeholder function to simulate fetching trend data from DB.
-            In a real application, this would connect to a PostgreSQL database
-            and query the 'trend_daily_update' table.
-            """
-            # For demonstration, returning a mock based on the trend_id
-            if trend_id == "1":
-                return {
-                    "outfit_name": "버블 헴 드레스",
-                    "keywords": "#Volume #BubbleHem #Sculptural",
-                    "image_url": "http://example.com/bubble-dress.jpg"
-                }
-            elif trend_id == "2":
-                return {
-                    "outfit_name": "오버사이즈 블레이저",
-                    "keywords": "#Oversized #Tailoring #Androgynous",
-                    "image_url": "http://example.com/oversized-blazer.jpg"
-                }
-            else:
-                return {
-                    "outfit_name": "알 수 없는 트렌드",
-                    "keywords": "#Unknown",
-                    "image_url": "http://example.com/default.jpg"
-                }
-
-        scraped_data = get_trend_data_from_db(request_data.trend_id)
-        
         # 2. Gemini 프롬프트 JSON 파일 로드
         with open(PROMPT_CONFIG_PATH, 'r', encoding='utf-8') as f:
             prompt_config = json.load(f)
@@ -104,8 +64,9 @@ async def generate_content(request_data: GenerationRequest):
             "user_uid": request_data.user_uid,
             "user_prompt": request_data.user_prompt,
             "output_type": request_data.output_type,
-            "scraped_data": scraped_data, # 스크래핑 데이터 포함
+            "scraped_data": scraped_data_mock, # 스크래핑 데이터 포함
             "gemini_prompt_json": prompt_config # Gemini 프롬프트 구조 자체를 n8n에 전달
+        }
 
         # 4. n8n Webhook 트리거
         response = requests.post(N8N_WEBHOOK_URL, json=payload_to_n8n)

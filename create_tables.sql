@@ -1,3 +1,4 @@
+-- Active: 1763645026538@@db_postgresql@5432@main_db
 -- PostgreSQL용: UUID 생성 확장 기능 확인 (PostgreSQL 버전 13+에서는 gen_random_uuid() 사용)
 -- CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
