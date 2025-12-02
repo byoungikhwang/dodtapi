@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
             event.preventDefault();
             alert('Login successful (simulated)! Email: ' + emailInput.value + ', Password: ' + passwordInput.value);
             // Optionally redirect
-            // window.location.href = '/dashboard';
+            window.location.href = 'index.html';
         }
     });
 

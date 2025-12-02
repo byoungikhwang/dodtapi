@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입 - AI Fashion Creator</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container" style="max-width: 500px;">
+        <div class="section-card form-container">
+            <h1 style="font-size: 2.2em;">회원가입</h1>
+            <p style="color: #ccc; text-align: center; margin-bottom: 30px;">AI Fashion Creator에 오신 것을 환영합니다.</p>
+
+            <form id="signupForm">
+                <input type="text" id="username" placeholder="사용자 아이디" required>
+                <input type="email" id="email" placeholder="이메일 주소" required>
+                <input type="password" id="password" placeholder="비밀번호" required>
+                <input type="password" id="password_confirm" placeholder="비밀번호 확인" required>
+                
+                <button type="submit" class="cta-button" style="width: 100%; margin-top: 10px;">가입하기</button>
+            </form>
+            <p id="error-message" style="color: #ff6b6b; margin-top: 15px; min-height: 20px;"></p>
+
+            <div style="text-align: center; margin-top: 20px;">
+                <p>이미 계정이 있으신가요? <a href="login.html" style="color: #00ffff;">로그인</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const password_confirm = document.getElementById('password_confirm').value;
+            const errorMessage = document.getElementById('error-message');
+
+            errorMessage.textContent = '';
+
+            if (password !== password_confirm) {
+                errorMessage.textContent = '비밀번호가 일치하지 않습니다.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        username: username,
+                        email: email,
+                        password: password
+                    })
+                });
+
+                if (response.ok) {
+                    alert('회원가입에 성공했습니다! 로그인 페이지로 이동합니다.');
+                    window.location.href = 'login.html';
+                } else {
+                    const errorData = await response.json();
+                    errorMessage.textContent = errorData.detail || '회원가입 중 오류가 발생했습니다.';
+                }
+            } catch (error) {
+                errorMessage.textContent = '서버에 연결할 수 없습니다. 잠시 후 다시 시도해주세요.';
+                console.error('Registration error:', error);
+            }
+        });
+    </script>
+</body>
+</html>
