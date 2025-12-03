@@ -26,8 +26,8 @@ const App = () => {
     setTimeout(() => {
       setLoading(false);
       if (isLogin) {
-        // 로그인 시도 (성공 조건: <!-- Import failed: success.com)
- - ENOENT: no such file or directory, access '/root/.gemini/success.com)\n' -->        if (email.endsWith(' <!-- Import failed: success.com') - ENOENT: no such file or directory, access '/root/.gemini/success.com')' --> && password === '1234') { 
+        // 로그인 시도 (성공 조건: @success.com)
+        if (email.endsWith(' @success.com') && password === '1234') { 
           setMessage(`'${email}'로 로그인 성공! 환영합니다.`);
           console.log('로그인 성공:', email);
         } else {
