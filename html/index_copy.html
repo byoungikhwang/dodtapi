@@ -193,45 +193,39 @@
                 </section>
                 
                 <!-- 4. Tab Content Area -->
-                <div id="tab-content" class="min-h-[40vh] p-6">
+                <div id="tab-content" class="min-h-[40vh] p-4">
                     
-                    <!-- 1. OOTD 탭: 추천 코디 갤러리 -->
+                    <!-- Tab 1: 오늘의 트렌드 의상 피드 (Default Active) -->
                     <div id="trend-feed" class="tab-page">
-                        <h2 class="text-2xl font-bold text-white mb-4">오늘의 코디 추천 (OOTD)</h2>
-                        <p class="text-purple-200 mb-6">AI가 추천하는 데일리 룩을 확인하고 영감을 얻어보세요.</p>
-                        
-                        <!-- 그리드 레이아웃: 모바일 1열, 태블릿 이상 3열 -->
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                            <!-- Look 1 카드 -->
-                            <!-- hover:scale-[1.02]: 마우스 오버 시 살짝 확대되는 효과 -->
-                            <div class="relative rounded-xl overflow-hidden shadow-lg transform transition duration-300 hover:scale-[1.02]">
-                                <img src="/image/tab_3.png" alt="OOTD Look 1 - Trench Coat" class="w-full h-full object-cover">
-                                <!-- 이미지 하단 텍스트 오버레이 -->
-                                <div class="absolute inset-0 bg-black bg-opacity-20 flex items-end p-3">
-                                    <span class="text-xs font-medium text-white p-1 rounded bg-black bg-opacity-50">#클래식</span>
+                        <h2 class="text-2xl font-bold mb-6 text-center border-b border-indigo-500/50 pb-2">데일리 트렌드 피드</h2>
+                        <p class="text-center text-gray-300 mb-8">마음에 드는 트렌드를 선택하고 '나만의 코디 생성하기' 탭으로 이동하여 스타일을 요청하세요.</p>
+
+                        <!-- New Inner Tab Section -->
+                        <div class="image-bg-section p-6 rounded-xl shadow-2xl relative">
+                            <div class="absolute inset-0 bg-black opacity-50 rounded-xl"></div>
+                            <div class="relative z-10">
+                                <!-- <div class="flex justify-center mb-4">
+                                    <button class="inner-tab-button p-2 px-4 rounded-l-lg active" onclick="openInnerTab('ootd')">OOTD</button>
+                                    <button class="inner-tab-button p-2 px-4" onclick="openInnerTab('beginner')">Beginner</button>
+                                    <button class="inner-tab-button p-2 px-4 rounded-r-lg" onclick="openInnerTab('trendy')">Trendy</button>
                                 </div>
-                            </div>
-                            
-                            <!-- Look 2 카드 -->
-                            <div class="relative rounded-xl overflow-hidden shadow-lg transform transition duration-300 hover:scale-[1.02]">
-                                <img src="/image/tab_2.png" alt="OOTD Look 2 - Blazer Shorts" class="w-full h-full object-cover">
-                                <div class="absolute inset-0 bg-black bg-opacity-20 flex items-end p-3">
-                                    <span class="text-xs font-medium text-white p-1 rounded bg-black bg-opacity-50">#캐주얼</span>
+                                <div id="ootd" class="inner-tab-content active p-4 text-center">
+                                    <h3 class="text-xl font-bold mb-2">OOTD (Outfit of the Day)</h3>
+                                    <p>오늘의 추천 스타일입니다. 매일 업데이트되는 새로운 코디를 확인하세요.</p>
                                 </div>
-                            </div>
-                            
-                            <!-- Look 3 카드 -->
-                            <div class="relative rounded-xl overflow-hidden shadow-lg transform transition duration-300 hover:scale-[1.02]">
-                                <img src="/image/tab_1.png" alt="OOTD Look 3 - Neon Leather" class="w-full h-full object-cover">
-                                <div class="absolute inset-0 bg-black bg-opacity-20 flex items-end p-3">
-                                    <span class="text-xs font-medium text-white p-1 rounded bg-black bg-opacity-50">#스트릿</span>
+                                <div id="beginner" class="inner-tab-content p-4 text-center">
+                                    <h3 class="text-xl font-bold mb-2">Beginner's Guide</h3>
+                                    <p>패션 초보자를 위한 기본 아이템과 스타일링 팁을 제공합니다.</p>
                                 </div>
+                                <div id="trendy" class="inner-tab-content p-4 text-center">
+                                    <h3 class="text-xl font-bold mb-2">Trendy Styles</h3>
+                                    <p>최신 패션 트렌드를 반영한 핫한 아이템들을 만나보세요.</p>
+                                </div> -->
                             </div>
                         </div>
                     </div>
 
-                    <!-- 2. Beginner 탭: 프롬프트 입력 및 생성 -->
-                    <!-- hidden 클래스로 초기에는 숨김 처리 -->
+                    <!-- Tab 2: 나만의 코디 생성하기 (Image-to-Image / 스타일 전송) -->
                     <div id="create-coordi" class="tab-page hidden p-4 sm:p-8 bg-indigo-900/40 rounded-xl shadow-inner">
                         <h2 class="text-2xl font-bold mb-6 text-center border-b border-indigo-500/50 pb-2">나만의 AI 코디 생성</h2>
                         <p class="text-center text-gray-300 mb-8">
@@ -286,7 +280,7 @@
                         </div>
                     </div>
                     
-                    <!-- 3. Trendy 탭: 결과물 리스트 -->
+                    <!-- Tab 3: 결과물 콘솔 -->
                     <div id="results" class="tab-page hidden p-8 text-center bg-indigo-900/40 rounded-xl shadow-inner">
                         <p class="text-xl text-gray-300">결과물 콘솔 탭입니다. 생성된 코디 결과 이미지들을 보여주는 갤러리 기능을 여기에 구현할 예정입니다.</p>
                         <button class="mt-4 p-3 bg-fuchsia-600 rounded-xl hover:bg-fuchsia-700 font-bold">내 결과물 보기</button>
