@@ -625,15 +625,12 @@
          * @param {string} targetPage - 보여줄 페이지의 ID.
          */
         function navigateTo(targetPage) {
-            console.log(`[navigateTo] Target page: ${targetPage}`);
             currentPage = targetPage;
             document.querySelectorAll('.page-section').forEach(section => {
                 if (section.id === targetPage) {
                     section.classList.remove('hidden');
-                    console.log(`[navigateTo] Showing section: ${section.id}`);
                 } else {
                     section.classList.add('hidden');
-                    console.log(`[navigateTo] Hiding section: ${section.id}`);
                 }
             });
             if (targetPage === 'trend') initializeTabs(); 
@@ -644,7 +641,6 @@
          * 탭 UI를 초기화하고 활성 탭 인디케이터 위치를 설정합니다.
          */
         function initializeTabs() {
-            console.log('[initializeTabs] Initializing tabs for trend section.');
             const tabButtons = document.querySelectorAll('.tab-button');
             const tabIndicator = document.getElementById('tab-indicator');
             const initialButton = document.querySelector('.tab-button[data-tab="trend-feed"]');
@@ -665,7 +661,6 @@
          * @param {string} tabId - 활성화할 탭의 ID.
          */
         function setActiveTab(tabId) {
-            console.log(`[setActiveTab] Activating tab: ${tabId}`);
             const tabButtons = document.querySelectorAll('.tab-button');
             const tabIndicator = document.getElementById('tab-indicator');
             const tabPages = document.querySelectorAll('.tab-page');
@@ -673,10 +668,8 @@
             tabPages.forEach(page => {
                 if (page.id === tabId) {
                     page.classList.remove('hidden');
-                    console.log(`[setActiveTab] Showing tab page: ${page.id}`);
                 } else {
                     page.classList.add('hidden');
-                    console.log(`[setActiveTab] Hiding tab page: ${page.id}`);
                 }
             });
 
@@ -698,10 +691,10 @@
         }
 
         /**
-         * 'Create' 탭으로 바로 이동합니다.
+         * 'Create' 탭으로 바로 이동합니다. (요청에 따라 '홈'으로 라우팅 동작으로 변경)
          */
         function goToCreateCoordi() {
-            setActiveTab('create-coordi');
+            navigateTo('trend'); // '홈'에 해당하는 'trend' 페이지 섹션으로 이동
             window.scrollTo(0, 0);
         }
 
