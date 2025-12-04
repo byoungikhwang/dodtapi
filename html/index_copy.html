@@ -4,69 +4,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>From Zero to LOUD - AI Fashion Creator</title>
-    <!-- Tailwind CSS 로드 -->
+    <!-- 외부 라이브러리 로드: Tailwind CSS, Google Fonts, Lucide Icons -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-    <!-- Lucide Icons 로드 -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    
     <style>
-        /* 기본 스타일 설정 및 Inter 폰트 적용 */
+        /* --- 기본 및 전역 스타일 --- */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #1a0033; /* 매우 깊은 보라색 배경 */
+            background-color: #1a0033; /* 깊은 보라색 배경 */
             color: #ffffff;
             line-height: 1.6;
         }
-        /* 스플래시 이미지의 네온 효과 */
+
+        /* --- UI 컴포넌트 스타일 --- */
+        /* 메인 헤더의 네온 효과 텍스트 */
         .neon-text {
-            text-shadow: 0 0 5px #f0f, 0 0 10px #f0f, 0 0 20px #f0f; /* 네온 효과 강화 */
+            text-shadow: 0 0 5px #f0f, 0 0 10px #f0f, 0 0 20px #f0f;
         }
-        /* 네온 원형 테두리 */
+        /* 로고 주위의 네온 효과 테두리 */
         .neon-circle-border {
             border: 3px solid #f0f;
             box-shadow: 0 0 15px #f0f, 0 0 25px rgba(255, 0, 255, 0.5);
             position: relative; 
             z-index: 10; 
         }
-        /* 액티브 탭 하이라이트 */
+        /* 탭 네비게이션 활성 탭 표시줄 */
         .tab-highlight {
             height: 4px;
-            background-color: #06B6D4; /* 밝은 시안색 */
+            background-color: #06B6D4; /* 시안색 */
             position: absolute;
             bottom: 0;
             transition: left 0.3s ease, width 0.3s ease;
         }
-        /* 트렌디한 카드 배경 그라데이션 */
-        .trend-card-bg {
-            background: linear-gradient(145deg, #5B21B5 10%, #7C3Aed 90%);
-        }
-        /* 버튼 스타일 */
+        /* 주요 액션 버튼 스타일 */
         .cyan-button {
-            background-color: #06B6D4; /* 밝은 시안색 */
+            background-color: #06B6D4;
             color: #1a0033;
-            transition: background-color: 0.3s;
+            transition: all 0.3s;
         }
         .cyan-button:hover {
             background-color: #0891b2; 
+            transform: scale(1.02);
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
+        }
+        .cyan-button:disabled {
+            background-color: #4b5563;
+            color: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
 
-        /* 헤더 배경 스타일: 배경 이미지와 높이 추가 */
+        /* --- 페이지별 섹션 스타일 --- */
+        /* 메인 헤더 배경 */
         .splash-bg {
-            background-color: #1a0033; /* Fallback */
-            min-height: 35vh; /* 높이를 25vh에서 35vh로 증가 */
-            display: flex; /* flex를 사용하여 콘텐츠를 중앙에 배치 */
+            background-color: #1a0033;
+            min-height: 35vh;
+            display: flex;
             flex-direction: column;
             justify-content: space-between;
             position: relative;
             overflow: hidden;
-
-            /* 배경 이미지 추가 (네온 그리드 Placeholder) */
-            background-image: url('../image/main.png'); /* 첨부된 이미지 파일 이름으로 변경 */
+            background-image: url('../image/main.png');
             background-size: cover;
             background-position: center;
         }
-
-        /* 배경 이미지 위에 짙은 반투명 오버레이를 추가하여 텍스트 가독성 높이기 */
+        /* 헤더 배경 위 텍스트 가독성을 위한 오버레이 */
         .splash-bg::after {
             content: '';
             position: absolute;
@@ -74,79 +79,111 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.5); /* 짙은 반투명 오버레이 */
-            z-index: 1; /* 콘텐츠(z-10, z-20) 아래에 위치 */
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
         }
         
-        /* 로그인 입력 필드 및 텍스트 스타일 개선 */
+        /* --- 'Create' 탭 내부 스타일 --- */
+        /* 텍스트 입력 필드 */
         .login-input {
-            background-color: #4c1d95;
+            background-color: #312e81;
             border: 1px solid #6366f1;
             color: #ffffff;
+            transition: border-color 0.3s;
+        }
+        .login-input:focus {
+            outline: none;
+            border-color: #06B6D4;
+            box-shadow: 0 0 0 2px rgba(6, 182, 212, 0.2);
         }
         .login-input::placeholder {
-            color: #ccc;
+            color: #9ca3af;
         }
-
-        /* 이미지 업로드 영역 스타일 */
+        /* 이미지 업로드 영역 */
         .upload-area {
             border: 2px dashed #6366f1;
-            transition: border-color 0.3s, background-color 0.3s;
+            transition: all 0.3s;
+            background-color: rgba(49, 46, 129, 0.4);
         }
         .upload-area:hover {
             border-color: #06B6D4;
-            background-color: #312e81;
+            background-color: rgba(49, 46, 129, 0.8);
         }
+        /* 프롬프트 추천 옵션 칩 */
+        .option-chip {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #d1d5db;
+            padding: 0.5rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .option-chip:hover {
+            background-color: #06B6D4;
+            border-color: #06B6D4;
+            color: #1a0033;
+            font-weight: bold;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+        .option-chip:active { transform: translateY(0); }
+        .option-chip.selected { /* 클릭 시 잠시 활성화되는 시각적 피드백 */
+            background-color: #06B6D4;
+            border-color: #06B6D4;
+            color: #1a0033;
+            font-weight: bold;
+        }
+        /* 성별 선택 라디오 버튼 */
+        .gender-radio:checked + label {
+            background-color: #06B6D4;
+            color: #1a0033;
+            font-weight: bold;
+            border-color: #06B6D4;
+            box-shadow: 0 0 10px rgba(6, 182, 212, 0.3);
+        }
+        /* 아코디언 메뉴 (상세 옵션) */
+        details > summary {
+            list-style: none;
+            cursor: pointer;
+        }
+        details > summary::-webkit-details-marker { display: none; }
+        details[open] summary {
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 0.5rem 0.5rem 0 0;
+        }
+        
+        /* 기타 유틸리티 스타일 */
         .image-preview {
             max-width: 100%;
             height: auto;
             max-height: 250px;
             object-fit: contain;
         }
-        
-        /* 마이페이지 생성 이력 이미지 스타일 */
         .history-image {
             height: 250px;
             object-fit: cover;
         }
-
-        /* Inner tab styles */
-        .inner-tab-button {
-            background-color: transparent;
-            color: white;
-            transition: background-color 0.3s, color 0.3s;
-        }
-        .inner-tab-button.active {
-            background-color: #06B6D4;
-            color: #1a0033;
-        }
-        .inner-tab-content {
-            display: none;
-        }
-        .inner-tab-content.active {
-            display: block;
-        }
-        .image-bg-section {
-            background-image: url('../image/main_1.png');
-            background-size: cover;
-            background-position: center;
-        }
-        
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #1a0033; }
+        ::-webkit-scrollbar-thumb { background: #4c1d95; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #6d28d9; }
     </style>
 </head>
 <body>
 
+    <!-- 전체 애플리케이션 컨테이너 -->
     <div id="app" class="min-h-screen">
         
-        <!-- 1. Header & Splash Section -->
+        <!-- 1. 페이지 상단 헤더 및 로고 섹션 -->
         <header class="splash-bg relative flex flex-col justify-between p-6">
-            <!-- Top Navigation -->
-            <!-- z-index 20으로 오버레이(z-1) 위에 위치 -->
+            <!-- 최상단 네비게이션 링크 -->
             <nav class="flex justify-end text-sm font-medium space-x-4 text-white/90 z-20">
-                <!-- [변경됨] navigateTo 함수를 사용하여 페이지 이동 구현 -->
                 <a href="login.html" class="hover:text-cyan-400">Login</a>
                 <span class="text-gray-400">/</span>
-                <a href="#" onclick="navigateTo('mypage')" class="hover:text-cyan-400">My Page</a>
+                <a href="mypage.html" class="hover:text-cyan-400">My Page</a>
                 <span class="text-gray-400">/</span>
                 <a href="#" onclick="navigateTo('trend')" class="hover:text-cyan-400">Trend</a>
                 <span class="text-gray-400">/</span>
@@ -155,139 +192,172 @@
                 <a href="#" onclick="navigateTo('trend')" class="hover:text-cyan-400">Home</a>
             </nav>
 
-            <!-- Splash Text (로고) -->
-            <!-- z-index 10으로 오버레이(z-1) 위에 위치 -->
+            <!-- 로고 영역 -->
             <div class="flex flex-col items-center justify-center h-full my-auto relative z-10"> 
-                <div class="neon-circle-border p-6 rounded-full w-fit">
-                    <h1 class="text-5xl md:text-7xl font-extrabold text-white text-center neon-text tracking-widest leading-tight">
-                        From Zero<br>to LOUD
-                    </h1>
+                <div class="neon-circle-border p-3 w-fit">
+                    <img src="../image/logo2.png" alt="Logo" class="h-24">
                 </div>
             </div>
         </header>
 
+        <!-- 2. 메인 콘텐츠 영역 -->
         <main class="container mx-auto px-4 py-8 max-w-7xl">
             
-            <!-- 페이지 섹션 1: 메인 콘텐츠 (로그인, 탭, 피드, 코디 생성) - 기본 페이지 -->
+            <!-- 페이지 섹션 1: 기본 콘텐츠 (탭 포함) -->
             <div id="trend" class="page-section">
                 
-
-
-                <!-- 3. Navigation Tabs -->
+                <!-- 탭 네비게이션 -->
                 <section class="mb-8">
                     <div class="tabs-container rounded-t-xl rounded-b-lg p-1 shadow-2xl relative">
                         <div id="tabs" class="flex justify-around relative">
-                            <button data-tab="trend-feed" class="tab-button flex-1 p-3 text-white font-semibold transition-all duration-300 hover:text-cyan-400 relative">
-                                OOTD
-                            </button>
-                            <button data-tab="create-coordi" class="tab-button flex-1 p-3 text-white font-semibold transition-all duration-300 hover:text-cyan-400 relative">
-                                Beginner
-                            </button>
-                            <button data-tab="results" class="tab-button flex-1 p-3 text-white font-semibold transition-all duration-300 hover:text-cyan-400 relative">
-                                Trendy
-                            </button>
-                            <!-- Active Tab Highlight Bar -->
+                            <button data-tab="trend-feed" class="tab-button flex-1 p-3 text-white font-semibold transition-all duration-300 hover:text-cyan-400 relative">OOTD</button>
+                            <button data-tab="create-coordi" class="tab-button flex-1 p-3 text-white font-semibold transition-all duration-300 hover:text-cyan-400 relative">Create</button>
+                            <button data-tab="results" class="tab-button flex-1 p-3 text-white font-semibold transition-all duration-300 hover:text-cyan-400 relative">Trendy</button>
                             <div id="tab-indicator" class="tab-highlight"></div>
                         </div>
                     </div>
                 </section>
                 
-                <!-- 4. Tab Content Area -->
-                <div id="tab-content" class="min-h-[40vh] p-4">
+                <!-- 탭 콘텐츠 표시 영역 -->
+                <div id="tab-content" class="min-h-[40vh] p-6">
                     
-                    <!-- Tab 1: 오늘의 트렌드 의상 피드 (Default Active) -->
+                    <!-- 탭 1: OOTD (오늘의 코디 추천) -->
                     <div id="trend-feed" class="tab-page">
-                        <h2 class="text-2xl font-bold mb-6 text-center border-b border-indigo-500/50 pb-2">데일리 트렌드 피드</h2>
-                        <p class="text-center text-gray-300 mb-8">마음에 드는 트렌드를 선택하고 '나만의 코디 생성하기' 탭으로 이동하여 스타일을 요청하세요.</p>
-
-                        <!-- New Inner Tab Section -->
-                        <div class="image-bg-section p-6 rounded-xl shadow-2xl relative">
-                            <div class="absolute inset-0 bg-black opacity-50 rounded-xl"></div>
-                            <div class="relative z-10">
-                                <!-- <div class="flex justify-center mb-4">
-                                    <button class="inner-tab-button p-2 px-4 rounded-l-lg active" onclick="openInnerTab('ootd')">OOTD</button>
-                                    <button class="inner-tab-button p-2 px-4" onclick="openInnerTab('beginner')">Beginner</button>
-                                    <button class="inner-tab-button p-2 px-4 rounded-r-lg" onclick="openInnerTab('trendy')">Trendy</button>
+                        <h2 class="text-2xl font-bold text-white mb-4">오늘의 코디 추천 (OOTD)</h2>
+                        <p class="text-purple-200 mb-6">AI가 추천하는 데일리 룩을 확인하고 영감을 얻어보세요.</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div class="relative rounded-xl overflow-hidden shadow-lg transform transition duration-300 hover:scale-[1.02]">
+                                <img src="/image/tab_3.png" alt="OOTD Look 1 - Trench Coat" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-black bg-opacity-20 flex items-end p-3">
+                                    <span class="text-xs font-medium text-white p-1 rounded bg-black bg-opacity-50">#클래식</span>
                                 </div>
-                                <div id="ootd" class="inner-tab-content active p-4 text-center">
-                                    <h3 class="text-xl font-bold mb-2">OOTD (Outfit of the Day)</h3>
-                                    <p>오늘의 추천 스타일입니다. 매일 업데이트되는 새로운 코디를 확인하세요.</p>
+                            </div>
+                            <div class="relative rounded-xl overflow-hidden shadow-lg transform transition duration-300 hover:scale-[1.02]">
+                                <img src="/image/tab_2.png" alt="OOTD Look 2 - Blazer Shorts" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-black bg-opacity-20 flex items-end p-3">
+                                    <span class="text-xs font-medium text-white p-1 rounded bg-black bg-opacity-50">#캐주얼</span>
                                 </div>
-                                <div id="beginner" class="inner-tab-content p-4 text-center">
-                                    <h3 class="text-xl font-bold mb-2">Beginner's Guide</h3>
-                                    <p>패션 초보자를 위한 기본 아이템과 스타일링 팁을 제공합니다.</p>
+                            </div>
+                            <div class="relative rounded-xl overflow-hidden shadow-lg transform transition duration-300 hover:scale-[1.02]">
+                                <img src="/image/tab_1.png" alt="OOTD Look 3 - Neon Leather" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-black bg-opacity-20 flex items-end p-3">
+                                    <span class="text-xs font-medium text-white p-1 rounded bg-black bg-opacity-50">#스트릿</span>
                                 </div>
-                                <div id="trendy" class="inner-tab-content p-4 text-center">
-                                    <h3 class="text-xl font-bold mb-2">Trendy Styles</h3>
-                                    <p>최신 패션 트렌드를 반영한 핫한 아이템들을 만나보세요.</p>
-                                </div> -->
                             </div>
                         </div>
                     </div>
 
-                    <!-- Tab 2: 나만의 코디 생성하기 (Image-to-Image / 스타일 전송) -->
-                    <div id="create-coordi" class="tab-page hidden p-4 sm:p-8 bg-indigo-900/40 rounded-xl shadow-inner">
-                        <h2 class="text-2xl font-bold mb-6 text-center border-b border-indigo-500/50 pb-2">나만의 AI 코디 생성</h2>
-                        <p class="text-center text-gray-300 mb-8">
-                            **이미지-투-이미지 스타일 전송**: 내 사진을 업로드하고, 원하는 컨셉(배역/스타일)을 입력하여 AI 코디를 생성해 보세요.
-                        </p>
-
-                        <div class="flex flex-col md:flex-row gap-6">
-                            <!-- 1. 이미지 업로드 섹션 -->
-                            <div class="md:w-1/2">
-                                <label class="block text-lg font-medium mb-3">1. 내 사진 업로드 (첫 번째 이미지)</label>
-                                <p class="text-sm text-gray-400 mb-3">AI가 코디를 입힐 인물 사진을 업로드하세요. (정면 사진 권장)</p>
-                                
-                                <div class="upload-area p-4 rounded-xl flex flex-col items-center justify-center min-h-[250px] bg-indigo-900/50 cursor-pointer" onclick="document.getElementById('file-input').click()">
-                                    <input type="file" id="file-input" accept="image/*" class="hidden" onchange="previewImage(event)">
-                                    
-                                    <img id="image-preview" class="image-preview hidden rounded-lg mb-2" alt="미리보기">
-                                    
-                                    <div id="upload-placeholder" class="text-center">
-                                        <i data-lucide="image-plus" class="w-8 h-8 text-cyan-400 mb-2 mx-auto"></i>
-                                        <p class="text-white font-semibold">클릭하여 이미지 업로드</p>
+                    <!-- 탭 2: Create (나만의 AI 코디 생성) -->
+                    <div id="create-coordi" class="tab-page hidden">
+                        <div class="bg-indigo-900/40 rounded-2xl p-6 border border-indigo-500/30 shadow-xl">
+                            <h2 class="text-2xl font-bold mb-2 text-center text-cyan-400">AI Stylist Studio</h2>
+                            <p class="text-center text-gray-300 mb-8 text-sm">내 사진에 새로운 스타일을 입혀보세요.</p>
+                            <div class="flex flex-col gap-8">
+                                <!-- 입력 섹션 1: 이미지 업로드 & 성별 선택 -->
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                    <!-- 이미지 업로드 -->
+                                    <div class="flex flex-col h-full">
+                                        <label class="flex items-center gap-2 text-lg font-bold mb-3 text-purple-300">
+                                            <span class="flex items-center justify-center w-6 h-6 rounded-full bg-purple-600 text-xs text-white">1</span>
+                                            내 사진 업로드
+                                        </label>
+                                        <div class="upload-area flex-grow rounded-xl flex items-center justify-center min-h-[300px] cursor-pointer" onclick="document.getElementById('file-input').click()">
+                                            <input type="file" id="file-input" accept="image/*" class="hidden" onchange="previewImage(event)">
+                                            <img id="image-preview" class="hidden w-full h-full object-contain" alt="미리보기">
+                                            <div id="upload-placeholder" class="text-center">
+                                                <i data-lucide="image-plus" class="w-10 h-10 text-cyan-300 mb-2"></i>
+                                                <p class="text-white font-medium">클릭하여 사진 업로드</p>
+                                                <p class="text-gray-400 text-sm mt-1">JPG, PNG (Max 5MB)</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- 성별 & 프롬프트 입력 -->
+                                    <div class="flex flex-col gap-6">
+                                        <!-- 성별 선택 -->
+                                        <div>
+                                            <label class="flex items-center gap-2 text-lg font-bold mb-3 text-purple-300">
+                                                <span class="flex items-center justify-center w-6 h-6 rounded-full bg-purple-600 text-xs text-white">2</span>
+                                                모델 성별 선택
+                                            </label>
+                                            <div class="grid grid-cols-3 gap-3">
+                                                <!-- 여성 -->
+                                                <div>
+                                                    <input type="radio" id="gender-female" name="gender" value="Female model" class="gender-radio hidden" checked>
+                                                    <label for="gender-female" class="flex flex-col items-center justify-center py-3 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 cursor-pointer">
+                                                        <i data-lucide="user" class="w-5 h-5 mb-1"></i><span class="text-sm">여성</span>
+                                                    </label>
+                                                </div>
+                                                <!-- 남성 -->
+                                                <div>
+                                                    <input type="radio" id="gender-male" name="gender" value="Male model" class="gender-radio hidden">
+                                                    <label for="gender-male" class="flex flex-col items-center justify-center py-3 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 cursor-pointer">
+                                                        <i data-lucide="user" class="w-5 h-5 mb-1"></i><span class="text-sm">남성</span>
+                                                    </label>
+                                                </div>
+                                                <!-- 공용 -->
+                                                <div>
+                                                    <input type="radio" id="gender-unisex" name="gender" value="Unisex fashion model" class="gender-radio hidden">
+                                                    <label for="gender-unisex" class="flex flex-col items-center justify-center py-3 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 cursor-pointer">
+                                                        <i data-lucide="users" class="w-5 h-5 mb-1"></i><span class="text-sm">공용</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- 스타일 설명 (프롬프트) -->
+                                        <div class="flex-grow flex flex-col">
+                                            <label class="flex items-center gap-2 text-lg font-bold mb-3 text-purple-300">
+                                                <span class="flex items-center justify-center w-6 h-6 rounded-full bg-purple-600 text-xs text-white">3</span>
+                                                스타일 설명
+                                            </label>
+                                            <textarea id="style-prompt" class="w-full h-full min-h-[150px] p-4 rounded-xl login-input" placeholder="예: 빈티지, 카페(데이트), 휴양지(해변), 초현실적인 디테일, 풀샷 스타일"></textarea>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <!-- 2. 스타일 프롬프트 및 생성 섹션 -->
-                            <div class="md:w-1/2">
-                                <label for="style-prompt" class="block text-lg font-medium mb-3">2. 원하는 스타일/배역 프롬프트 입력 (두 번째 이미지 컨셉)</label>
-                                <textarea id="style-prompt" rows="6" placeholder="예시: 고급스러운 이브닝 드레스, 미래적인 사이버펑크 스타일의 수트, 또는 중세 시대 기사의 갑옷"
-                                          class="w-full p-3 rounded-lg login-input focus:ring-cyan-400 focus:border-cyan-400 resize-none"></textarea>
-                                
-                                <button id="generate-button" onclick="generateCoordi()" class="w-full p-3 mt-4 font-bold rounded-xl cyan-button flex items-center justify-center space-x-2 disabled:bg-gray-500 disabled:cursor-not-allowed" disabled>
-                                    <i data-lucide="sparkles" class="w-5 h-5 inline-block"></i>
-                                    <span>AI 코디 생성 요청</span>
+                                <!-- 입력 섹션 2: 상세 옵션 선택 -->
+                                <div>
+                                    <label class="flex items-center gap-2 text-lg font-bold mb-3 text-purple-300">
+                                        <span class="flex items-center justify-center w-6 h-6 rounded-full bg-purple-600 text-xs text-white">4</span>
+                                        상세 옵션 선택 (클릭하여 추가)
+                                    </label>
+                                    <div id="prompt-options-container" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                        <!-- JavaScript에 의해 동적으로 채워짐 -->
+                                    </div>
+                                </div>
+                                <!-- AI 생성 버튼 -->
+                                <button id="generate-button" onclick="generateCoordi()" class="w-full py-4 font-bold rounded-xl cyan-button" disabled>
+                                    AI 코디 생성하기
                                 </button>
                             </div>
-                        </div>
-                        
-                        <!-- 3. 결과 영역 -->
-                        <div class="mt-8 p-6 rounded-xl bg-indigo-900 shadow-2xl">
-                            <h3 class="text-xl font-semibold mb-4 border-b border-cyan-400/50 pb-2">AI 코디 결과</h3>
-                            <div id="loading-indicator" class="text-center py-12 hidden">
-                                <svg class="animate-spin h-8 w-8 text-cyan-400 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                </svg>
-                                <p class="mt-3 text-cyan-400">AI가 스타일을 전송 중입니다. 잠시만 기다려 주세요...</p>
-                            </div>
-                            <div id="result-image-container" class="text-center py-4">
-                                <img id="result-image" class="image-preview mx-auto rounded-lg shadow-lg hidden" alt="생성된 코디 이미지">
-                                <p id="result-message" class="text-gray-400">사진을 업로드하고 스타일을 입력해 주세요.</p>
+                            <!-- 결과 표시 영역 -->
+                            <div id="result-area" class="mt-12 hidden border-t border-indigo-500/30 pt-10">
+                                <h3 class="text-2xl font-bold text-white mb-6 text-center">Creation Result</h3>
+                                <!-- 로딩 인디케이터 -->
+                                <div id="loading-indicator" class="hidden text-center py-12">
+                                    <div class="relative w-20 h-20 mx-auto animate-spin">
+                                        <div class="absolute inset-0 rounded-full border-4 border-indigo-700"></div>
+                                        <div class="absolute inset-0 rounded-full border-4 border-t-cyan-400"></div>
+                                    </div>
+                                    <p class="text-cyan-400 font-bold mt-4">AI가 스타일을 생성하고 있습니다...</p>
+                                </div>
+                                <!-- 결과 이미지 -->
+                                <div id="result-container" class="hidden text-center">
+                                    <img id="result-image" class="w-full h-auto object-cover rounded-xl shadow-2xl max-w-md mx-auto" alt="결과 이미지">
+                                    <button onclick="downloadResult()" class="mt-4 w-full max-w-md py-2 bg-white text-black font-bold rounded-lg hover:bg-gray-200">
+                                        이미지 저장하기
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Tab 3: 결과물 콘솔 -->
+                    <!-- 탭 3: Trendy (결과물 리스트) -->
                     <div id="results" class="tab-page hidden p-8 text-center bg-indigo-900/40 rounded-xl shadow-inner">
                         <p class="text-xl text-gray-300">결과물 콘솔 탭입니다. 생성된 코디 결과 이미지들을 보여주는 갤러리 기능을 여기에 구현할 예정입니다.</p>
                         <button class="mt-4 p-3 bg-fuchsia-600 rounded-xl hover:bg-fuchsia-700 font-bold">내 결과물 보기</button>
                     </div>
                 </div>
 
-                <!-- "나만의 코디 생성하러 가기" Button Section -->
+                <!-- 페이지 이동 버튼 -->
                 <section class="mt-12 text-center">
                     <button onclick="goToCreateCoordi()" class="p-4 px-8 font-bold rounded-xl cyan-button text-lg">
                         나만의 코디 생성하러 가기
@@ -295,61 +365,146 @@
                 </section>
             </div>
             
-            <!-- 페이지 섹션 2: 마이 페이지 (My Page) -->
+            <!-- 페이지 섹션 2: 마이 페이지 -->
             <div id="mypage" class="page-section hidden p-8 bg-indigo-900/40 rounded-xl shadow-2xl">
                 <h2 class="text-4xl font-extrabold mb-8 text-cyan-400">My Page</h2>
-                
-                <!-- 사용자 정보 섹션 -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 border-b border-indigo-500/50 pb-6">
                     <div class="font-bold text-lg text-gray-300">이름</div>
                     <div class="md:col-span-2 text-xl font-medium text-white">@@@</div>
-                    
                     <div class="font-bold text-lg text-gray-300">이메일</div>
                     <div class="md:col-span-2 text-xl font-medium text-white">abc12345@gmail.com</div>
-                    
                     <div class="font-bold text-lg text-gray-300">플랜</div>
                     <div class="md:col-span-2 text-xl font-medium text-white">Basic</div>
                 </div>
-                
-                <!-- 생성 이력 영상 (갤러리) 섹션 -->
                 <h3 class="text-2xl font-bold mb-6 border-b border-cyan-400/50 pb-2">생성 이력 영상</h3>
-                
-                <!-- Mockup Images (2.jpg 참조) -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     <div class="rounded-xl overflow-hidden shadow-lg border border-indigo-500/50">
                         <img src="https://placehold.co/400x400/312e81/ffffff?text=Generated+Image+1" alt="생성이미지 1" class="w-full history-image">
                         <div class="p-3 text-sm text-center bg-indigo-900/70">Urban Chic Style</div>
                     </div>
-                    <div class="rounded-xl overflow-hidden shadow-lg border border-indigo-500/50">
-                        <img src="https://placehold.co/400x400/312e81/ffffff?text=Generated+Image+2" alt="생성이미지 2" class="w-full history-image">
-                        <div class="p-3 text-sm text-center bg-indigo-900/70">European Classic Style</div>
-                    </div>
-                    <div class="rounded-xl overflow-hidden shadow-lg border border-indigo-500/50">
-                        <img src="https://placehold.co/400x400/312e81/ffffff?text=Generated+Image+3" alt="생성이미지 3" class="w-full history-image">
-                        <div class="p-3 text-sm text-center bg-indigo-900/70">Cyberpunk Leather Look</div>
-                    </div>
                 </div>
             </div>
             
-            <!-- 페이지 섹션 3: AI 설명 페이지 (임시) -->
+            <!-- 페이지 섹션 3: AI 소개 -->
             <div id="ai" class="page-section hidden p-8 text-center bg-indigo-900/40 rounded-xl shadow-inner">
                 <h2 class="text-4xl font-extrabold mb-8 text-cyan-400">AI 소개 페이지</h2>
                 <p class="text-xl text-gray-300">이곳은 AI 기술과 이미지-투-이미지 생성 원리를 설명하는 페이지입니다.</p>
                 <button onclick="navigateTo('trend')" class="mt-4 p-3 bg-fuchsia-600 rounded-xl hover:bg-fuchsia-700 font-bold">메인 페이지로 돌아가기</button>
             </div>
-
-
         </main>
     </div>
 
-    <script>
-        // 상수 및 유틸리티 함수
-        const API_KEY = ""; // 캔버스 환경에서 자동 제공
-        const IMAGE_GEN_URL = `https://generativelanguage.googleapis.com/v1beta/models/imagen-4.0-generate-001:predict?key=${API_KEY}`;
-        
-        let currentPage = 'trend'; // 현재 활성화된 페이지 상태
+    <!-- 알림 모달: showAlert() 함수를 통해 제어됨 -->
+    <div id="custom-alert" class="fixed top-5 right-5 z-50 transform translate-x-full transition-transform duration-300">
+        <div class="bg-indigo-900/90 border border-cyan-500/50 text-white px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 backdrop-blur-md">
+            <i data-lucide="info" class="w-6 h-6 text-cyan-400"></i>
+            <span id="alert-msg" class="font-medium">Message</span>
+        </div>
+    </div>
 
-        // Base64 인코딩 함수 (File to Base64)
+    <script>
+        // --- 전역 상수 및 변수 ---
+        const API_KEY = "AIzaSyCvLevOs3B-NXMDtUNwZhavPBah37XEFm8"; // Gemini API 키 (실제 배포 시에는 안전하게 관리 필요)
+        const IMAGE_GEN_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image-preview:generateContent?key=${API_KEY}`;
+        let currentPage = 'trend'; // 현재 활성화된 페이지 ID
+        
+        // --- 프롬프트 데이터 ---
+        // AI에게 전달할 프롬프트의 각 옵션을 정의합니다.
+        // label: 사용자에게 보여질 한글 텍스트
+        // value: 실제 API에 전달될 영문 프롬프트 값
+        const promptData = [
+            {
+                category: "👗 패션 스타일 & 코디",
+                items: [
+                    { label: "캐주얼", value: "Casual style" },
+                    { label: "미니멀", value: "Minimalist fashion" },
+                    { label: "스트릿", value: "Streetwear" },
+                    { label: "빈티지", value: "Vintage fashion" },
+                    { label: "클래식", value: "Classic style" },
+                    { label: "스포티", value: "Sporty look" },
+                    { label: "고프코어", value: "Gorpcore" },
+                    { label: "그런지", value: "Grunge style" },
+                    { label: "프레피", value: "Preppy look" },
+                    { label: "로맨틱", value: "Romantic style" },
+                    { label: "비즈니스 캐주얼", value: "Business casual" }
+                ]
+            },
+            {
+                category: "📷 카메라 위치와 구도 (Shot Type)",
+                items: [
+                    { label: "풀 샷 (전신)", value: "Full body shot, wide shot" },
+                    { label: "롱 샷 (원거리)", value: "Long shot, far view" },
+                    { label: "익스트림 롱 샷", value: "Extreme long shot, vast background" },
+                    { label: "니 샷 (무릎 위)", value: "Knee shot, 3/4 shot, from knees up" },
+                    { label: "웨이스트 샷 (허리 위)", value: "Waist shot, medium shot, from waist up" },
+                    { label: "바스트 샷 (가슴 위)", value: "Bust shot, chest up" },
+                    { label: "클로즈업 (얼굴)", value: "Close-up shot of face" },
+                    { label: "익스트림 클로즈업", value: "Extreme close-up, detailed eyes" },
+                    { label: "숄더 샷", value: "Over the shoulder shot" },
+                    { label: "정면", value: "Front view, facing camera" },
+                    { label: "측면 ", value: "Side profile view" },
+                    { label: "45도 측면", value: "Three-quarter view, 45-degree angle" },
+                    { label: "뒷면 ", value: "Back view, from behind" },
+                    { label: "로우 앵글", value: "Low angle shot, looking up" },
+                    { label: "하이 앵글", value: "High angle shot, looking down" }
+                ]
+            },
+            {
+                category: "📍 장소 및 상황 (TPO)",
+                items: [
+                    { label: "예식장 (하객룩)", value: "Wedding guest look, Wedding hall background" },
+                    { label: "쇼핑몰", value: "Shopping mall background, Shopping outfit" },
+                    { label: "카페 (데이트)", value: "Cafe date outfit, Cafe background" },
+                    { label: "친구 만남", value: "Hangout with friends, Casual street background" },
+                    { label: "사무실 (출근)", value: "Office wear, Modern office background" },
+                    { label: "피트니스 (운동)", value: "Gym wear, Fitness center background" },
+                    { label: "공항 패션", value: "Airport fashion, Airport terminal background" },
+                    { label: "휴양지 (해변)", value: "Beach resort wear, Sunny beach background" },
+                    { label: "캠퍼스", value: "University campus background, College student look" }
+                ]
+            },
+            {
+                category: "🌤️ 날씨 및 계절",
+                items: [
+                    { label: "맑은 날 (화창함)", value: "Sunny day, Clear blue sky, Bright lighting" },
+                    { label: "흐린 날 (차분함)", value: "Cloudy day, Overcast sky, Soft lighting" },
+                    { label: "비오는 날 (우산)", value: "Rainy day, Wet streets, Holding an umbrella" },
+                    { label: "눈오는 날 (겨울)", value: "Snowy day, Winter fashion, Snow background" },
+                    { label: "바람 부는 날", value: "Windy day, Hair blowing in wind" },
+                    { label: "봄 (벚꽃)", value: "Spring season, Cherry blossoms background" },
+                    { label: "가을 (낙엽)", value: "Autumn season, Falling leaves background" },
+                    { label: "해 질 녘 (노을)", value: "Golden hour, Sunset lighting" }
+                ]
+            },
+            {
+                category: "✨ 화질 및 퀄리티",
+                items: [
+                    { label: "사진과 같은 현실감", value: "Photorealistic" },
+                    { label: "초현실적인 디테일", value: "Hyper-realistic" },
+                    { label: "초고해상도 (8K)", value: "8k_resolution" },
+                    { label: "매우 정밀한 묘사", value: "Highly_detailed" },
+                    { label: "걸작", value: "Masterpiece" }
+                ]
+            }
+        ];
+
+        // 빠른 조회를 위해 한글 라벨을 영문 값으로 변환하는 맵을 생성합니다.
+        const labelToValueMap = {};
+        promptData.forEach(section => {
+            if (section.isGrouped) {
+                section.groups.forEach(group => group.items.forEach(item => { labelToValueMap[item.label] = item.value; }));
+            } else {
+                section.items.forEach(item => { labelToValueMap[item.label] = item.value; });
+            }
+        });
+
+        // --- 유틸리티 함수 ---
+
+        /**
+         * File 객체를 Base64 문자열로 변환합니다.
+         * @param {File} file - 변환할 파일 객체.
+         * @returns {Promise<string>} Base64로 인코딩된 이미지 데이터.
+         */
         function fileToBase64(file) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
@@ -358,321 +513,304 @@
                 reader.onerror = error => reject(error);
             });
         }
-        
-        // [추가됨] 페이지 이동 함수
-        function navigateTo(targetPage) {
-            currentPage = targetPage;
-            const pageSections = document.querySelectorAll('.page-section');
+
+        /**
+         * 화면 우측 상단에 커스텀 알림 메시지를 표시합니다.
+         * @param {string} msg - 표시할 메시지.
+         */
+        function alertMessage(msg) {
+            const alertBox = document.getElementById('custom-alert');
+            const alertMsg = document.getElementById('alert-msg');
+            if (alertBox && alertMsg) {
+                alertMsg.textContent = msg;
+                alertBox.classList.remove('translate-x-full');
+                setTimeout(() => alertBox.classList.add('translate-x-full'), 3000);
+            }
+        }
+
+        // --- UI 렌더링 및 이벤트 처리 함수 ---
+
+        /**
+         * 'promptData'를 기반으로 상세 옵션 UI(아코디언 메뉴와 칩)를 생성합니다.
+         */
+        function renderPromptOptions() {
+            const container = document.getElementById('prompt-options-container');
+            if (!container) return;
+            container.innerHTML = ''; 
+
+            promptData.forEach((section, index) => {
+                const details = document.createElement('details');
+                details.className = "group border border-indigo-500/30 rounded-xl bg-indigo-900/20 overflow-hidden";
+                if(index === 0) details.open = true; // 첫 번째 섹션은 기본적으로 열어둠
+
+                const summary = document.createElement('summary');
+                summary.className = "flex items-center justify-between p-4 text-sm font-bold text-indigo-200 hover:bg-white/5 transition select-none";
+                summary.innerHTML = `<span class="flex items-center gap-2">${section.category}</span><i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-open:rotate-180"></i>`;
+
+                const contentDiv = document.createElement('div');
+                contentDiv.className = "p-4 border-t border-indigo-500/30 bg-black/20 flex flex-wrap gap-2";
+
+                if (section.isGrouped) {
+                    section.groups.forEach(group => {
+                        const groupTitle = document.createElement('div');
+                        groupTitle.className = "w-full text-xs text-cyan-400 mt-2 mb-1 font-bold";
+                        groupTitle.textContent = group.name;
+                        contentDiv.appendChild(groupTitle);
+                        group.items.forEach(item => contentDiv.appendChild(createChip(item)));
+                    });
+                } else {
+                    section.items.forEach(item => contentDiv.appendChild(createChip(item)));
+                }
+
+                details.appendChild(summary);
+                details.appendChild(contentDiv);
+                container.appendChild(details);
+            });
             
-            pageSections.forEach(section => {
+            lucide.createIcons(); 
+        }
+
+        /**
+         * 클릭 가능한 프롬프트 칩(버튼)을 생성합니다.
+         * @param {object} item - { label, value } 형태의 프롬프트 아이템.
+         * @returns {HTMLButtonElement} 생성된 버튼 엘리먼트.
+         */
+        function createChip(item) {
+            const btn = document.createElement('button');
+            btn.className = "option-chip";
+            btn.textContent = item.label;
+            
+            btn.onclick = () => {
+                const textArea = document.getElementById('style-prompt');
+                if (!textArea) return;
+                let currentText = textArea.value.trim();
+                
+                // 텍스트 필드에 콤마로 구분하여 추가
+                if (currentText.length > 0 && !currentText.endsWith(',')) {
+                    textArea.value = currentText + ", " + item.label;
+                } else {
+                    textArea.value = currentText + (currentText.length > 0 ? " " : "") + item.label;
+                }
+                
+                textArea.focus();
+                btn.classList.add('selected'); // 클릭 피드백
+                setTimeout(() => btn.classList.remove('selected'), 300);
+            };
+            return btn;
+        }
+
+        /**
+         * 파일 입력 시 이미지를 미리 보여줍니다.
+         * @param {Event} event - 파일 input의 change 이벤트.
+         */
+        function previewImage(event) {
+            const file = event.target.files[0];
+            if(file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    document.getElementById('image-preview').src = e.target.result;
+                    document.getElementById('image-preview').classList.remove('hidden');
+                    document.getElementById('upload-placeholder').classList.add('hidden');
+                    document.getElementById('generate-button').disabled = false;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // --- 핵심 애플리케이션 로직 ---
+
+        /**
+         * 페이지 네비게이션을 처리합니다. (SPA처럼 동작)
+         * @param {string} targetPage - 보여줄 페이지의 ID.
+         */
+        function navigateTo(targetPage) {
+            console.log(`[navigateTo] Target page: ${targetPage}`);
+            currentPage = targetPage;
+            document.querySelectorAll('.page-section').forEach(section => {
                 if (section.id === targetPage) {
                     section.classList.remove('hidden');
+                    console.log(`[navigateTo] Showing section: ${section.id}`);
                 } else {
                     section.classList.add('hidden');
+                    console.log(`[navigateTo] Hiding section: ${section.id}`);
                 }
             });
-
-            // 페이지가 전환되면 탭 인디케이터 초기화 (메인 페이지로 돌아갈 때만)
-            // initializeTabs 함수가 전역 스코프에 정의되었으므로 이제 안전하게 호출 가능
-            if (targetPage === 'trend') {
-                initializeTabs(); 
-            }
-            // 아이콘 새로고침
+            if (targetPage === 'trend') initializeTabs(); 
             lucide.createIcons();
         }
 
-        // [수정됨] 탭 초기화 및 인디케이터 위치 설정 함수 (전역 스코프)
+        /**
+         * 탭 UI를 초기화하고 활성 탭 인디케이터 위치를 설정합니다.
+         */
         function initializeTabs() {
+            console.log('[initializeTabs] Initializing tabs for trend section.');
             const tabButtons = document.querySelectorAll('.tab-button');
             const tabIndicator = document.getElementById('tab-indicator');
-            const initialButton = document.querySelector(`.tab-button[data-tab="trend-feed"]`);
+            const initialButton = document.querySelector('.tab-button[data-tab="trend-feed"]');
 
-            if (initialButton) {
-                // 최초 로드 시 인디케이터 초기 위치를 즉시 설정 (transition 없이)
+            if (initialButton && tabIndicator) {
                 const rect = initialButton.getBoundingClientRect();
                 const parentRect = initialButton.closest('#tabs').getBoundingClientRect();
-                
-                // 일시적으로 transition 끄기
                 tabIndicator.style.transition = 'none'; 
                 tabIndicator.style.left = `${rect.left - parentRect.left}px`;
                 tabIndicator.style.width = `${rect.width}px`;
-                
-                // 짧은 딜레이 후 transition 다시 켜기
-                setTimeout(() => {
-                    tabIndicator.style.transition = 'left 0.3s ease, width 0.3s ease'; 
-                }, 50);
-                
+                setTimeout(() => { tabIndicator.style.transition = 'left 0.3s ease, width 0.3s ease'; }, 50);
                 setActiveTab('trend-feed');
             }
         }
         
-        // 탭 활성화 로직
+        /**
+         * 특정 탭을 활성화하고 해당 콘텐츠를 보여줍니다.
+         * @param {string} tabId - 활성화할 탭의 ID.
+         */
         function setActiveTab(tabId) {
+            console.log(`[setActiveTab] Activating tab: ${tabId}`);
             const tabButtons = document.querySelectorAll('.tab-button');
             const tabIndicator = document.getElementById('tab-indicator');
             const tabPages = document.querySelectorAll('.tab-page');
             
-            // 1. 페이지 숨기기/보이기
             tabPages.forEach(page => {
-                page.classList.add('hidden');
                 if (page.id === tabId) {
                     page.classList.remove('hidden');
+                    console.log(`[setActiveTab] Showing tab page: ${page.id}`);
+                } else {
+                    page.classList.add('hidden');
+                    console.log(`[setActiveTab] Hiding tab page: ${page.id}`);
                 }
             });
 
-            // 2. 버튼 스타일 업데이트 및 인디케이터 이동
-            tabButtons.forEach(button => {
-                const isActive = button.getAttribute('data-tab') === tabId;
-                
-                if (isActive) {
-                    const rect = button.getBoundingClientRect();
-                    const parentRect = button.closest('#tabs').getBoundingClientRect();
-                    
-                    tabIndicator.style.left = `${rect.left - parentRect.left}px`;
-                    tabIndicator.style.width = `${rect.width}px`;
-                    
-                    button.classList.add('text-cyan-400'); 
-                } else {
-                    button.classList.remove('text-cyan-400');
-                }
-            });
-            
-            // 탭이 전환된 후 아이콘 다시 생성 (필요한 경우)
+            if (tabIndicator) {
+                tabButtons.forEach(button => {
+                    const isActive = button.getAttribute('data-tab') === tabId;
+                    if (isActive) {
+                        const rect = button.getBoundingClientRect();
+                        const parentRect = button.closest('#tabs').getBoundingClientRect();
+                        tabIndicator.style.left = `${rect.left - parentRect.left}px`;
+                        tabIndicator.style.width = `${rect.width}px`;
+                        button.classList.add('text-cyan-400'); 
+                    } else {
+                        button.classList.remove('text-cyan-400');
+                    }
+                });
+            }
             lucide.createIcons();
         }
 
-        // Inner tab logic
-        function openInnerTab(tabName) {
-            document.querySelectorAll('.inner-tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            document.querySelectorAll('.inner-tab-button').forEach(button => {
-                button.classList.remove('active');
-            });
-            document.getElementById(tabName).classList.add('active');
-            event.currentTarget.classList.add('active');
-        }
-
+        /**
+         * 'Create' 탭으로 바로 이동합니다.
+         */
         function goToCreateCoordi() {
             setActiveTab('create-coordi');
             window.scrollTo(0, 0);
         }
 
-        // 이미지 미리보기 및 버튼 활성화
-        function previewImage(event) {
-            const file = event.target.files[0];
-            const preview = document.getElementById('image-preview');
-            const placeholder = document.getElementById('upload-placeholder');
-            const generateButton = document.getElementById('generate-button');
-            const resultMessage = document.getElementById('result-message');
-
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    preview.src = e.target.result;
-                    preview.classList.remove('hidden');
-                    placeholder.classList.add('hidden');
-                    generateButton.disabled = false;
-                    resultMessage.textContent = '스타일을 입력하고 생성 버튼을 눌러주세요.';
-                };
-                reader.readAsDataURL(file);
-            } else {
-                preview.src = '';
-                preview.classList.add('hidden');
-                placeholder.classList.remove('hidden');
-                generateButton.disabled = true;
-                resultMessage.textContent = '사진을 업로드하고 스타일을 입력해 주세요.';
-            }
-        }
-
-
-        // AI 코디 생성 요청 함수 (스타일 전송)
+        /**
+         * 입력된 정보를 바탕으로 Gemini API에 이미지 생성을 요청합니다.
+         */
         async function generateCoordi() {
+            const rawPrompt = document.getElementById('style-prompt').value.trim();
             const fileInput = document.getElementById('file-input');
-            const promptInput = document.getElementById('style-prompt');
-            const loadingIndicator = document.getElementById('loading-indicator');
-            const resultImage = document.getElementById('result-image');
-            const resultMessage = document.getElementById('result-message');
-            const generateButton = document.getElementById('generate-button');
-
-            if (fileInput.files.length === 0 || !promptInput.value.trim()) {
-                alertMessage('사진과 스타일 프롬프트를 모두 입력해주세요.');
+            const genderValue = document.querySelector('input[name="gender"]:checked').value;
+            
+            if(!fileInput.files[0] || !rawPrompt) {
+                alertMessage("이미지와 스타일 설명을 모두 입력해주세요.");
                 return;
             }
 
-            // UI 상태 초기화 및 로딩 시작
-            resultImage.classList.add('hidden');
-            resultMessage.textContent = '';
-            loadingIndicator.classList.remove('hidden');
-            generateButton.disabled = true;
-
-            const userPrompt = promptInput.value.trim();
-            const sourceFile = fileInput.files[0];
+            // 1. 프롬프트 조합: (성별) + (사용자 입력)
+            let finalPrompt = `${genderValue}, ${rawPrompt}`;
             
+            // 2. 프롬프트 변환: 한글 키워드를 영문으로 변경
+            Object.keys(labelToValueMap).forEach(label => {
+                finalPrompt = finalPrompt.replaceAll(label, labelToValueMap[label]);
+            });
+
+            // 3. 얼굴 보존 지시사항 추가 (결과물 퀄리티에 중요)
+            const facePreservationInstruction = "Based on the input image, change the clothing, style, and background as described, but you MUST preserve the person's face, facial features, and identity exactly as they are in the input image. ";
+            finalPrompt = facePreservationInstruction + finalPrompt;
+
+            // UI를 로딩 상태로 변경
+            const loading = document.getElementById('loading-indicator');
+            const resultArea = document.getElementById('result-area');
+            const resultContainer = document.getElementById('result-container');
+            const btn = document.getElementById('generate-button');
+
             try {
-                // 1. 원본 이미지를 Base64로 인코딩
-                const base64Image = await fileToBase64(sourceFile);
+                resultArea.classList.remove('hidden');
+                loading.classList.remove('hidden');
+                resultContainer.classList.add('hidden');
+                btn.disabled = true;
+                resultArea.scrollIntoView({ behavior: 'smooth' });
 
-                // 2. API Payload 구성 (Image-to-Image Generation)
-                const payload = {
-                    instances: [
-                        {
-                            prompt: userPrompt,
-                            inputImage: {
-                                imageBytes: base64Image
-                            }
-                        }
-                    ],
-                    parameters: {
-                        "sampleCount": 1 
-                    }
-                };
+                // 4. API 호출
+                const base64Img = await fileToBase64(fileInput.files[0]);
+                const response = await fetch(IMAGE_GEN_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [ { text: finalPrompt }, { inlineData: { mimeType: fileInput.files[0].type || "image/jpeg", data: base64Img } } ] }],
+                        generationConfig: { responseModalities: ["IMAGE"] }
+                    })
+                });
 
-                // 3. API 호출 (지수 백오프 적용)
-                let response;
-                const maxRetries = 3;
-                let delay = 1000;
+                if(!response.ok) throw new Error(`서버 요청 실패 (${response.status})`);
 
-                for (let i = 0; i < maxRetries; i++) {
-                    try {
-                        response = await fetch(IMAGE_GEN_URL, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify(payload)
-                        });
+                const data = await response.json();
+                const resultBase64 = data.candidates?.[0]?.content?.parts?.find(p => p.inlineData)?.inlineData?.data;
 
-                        if (response.ok) break; 
-                        
-                        if (i < maxRetries - 1) {
-                            await new Promise(res => setTimeout(res, delay));
-                            delay *= 2; 
-                        } else {
-                            throw new Error('API 호출 실패: ' + response.statusText);
-                        }
-
-                    } catch (error) {
-                        if (i < maxRetries - 1) {
-                            await new Promise(res => setTimeout(res, delay));
-                            delay *= 2;
-                        } else {
-                            throw error;
-                        }
-                    }
-                }
-                
-                if (!response || !response.ok) throw new Error('API 응답 수신 실패');
-                
-                const result = await response.json();
-                
-                // 4. 결과 이미지 Base64 데이터 추출
-                const base64Data = result?.predictions?.[0]?.bytesBase64Encoded;
-
-                if (base64Data) {
-                    const imageUrl = `data:image/png;base64,${base64Data}`;
-                    resultImage.src = imageUrl;
-                    resultImage.classList.remove('hidden');
-                    resultMessage.textContent = 'AI 코디 생성 완료!';
+                // 5. 결과 표시
+                if(resultBase64) {
+                    document.getElementById('result-image').src = `data:image/png;base64,${resultBase64}`;
+                    loading.classList.add('hidden');
+                    resultContainer.classList.remove('hidden');
                 } else {
-                    resultMessage.textContent = '이미지 생성에 실패했습니다. (응답 데이터 오류)';
-                    console.error("AI Response Error:", result);
+                    throw new Error("API 응답에서 이미지를 찾을 수 없습니다.");
                 }
 
-            } catch (error) {
-                resultMessage.textContent = `오류 발생: ${error.message}`;
-                console.error("Error generating image:", error);
+            } catch (e) {
+                console.error("오류 발생:", e);
+                loading.classList.add('hidden');
+                alertMessage("오류: " + e.message);
             } finally {
-                loadingIndicator.classList.add('hidden');
-                generateButton.disabled = false;
-                lucide.createIcons();
+                btn.disabled = false; // 버튼 다시 활성화
             }
         }
 
+        /**
+         * 생성된 이미지를 다운로드합니다.
+         */
+        function downloadResult() {
+            const link = document.createElement('a');
+            link.href = document.getElementById('result-image').src;
+            link.download = 'ai-stylist-result.png';
+            link.click();
+        }
 
+        // --- 페이지 초기화 ---
+
+        /**
+         * DOM이 로드된 후 실행될 초기화 로직입니다.
+         */
         document.addEventListener('DOMContentLoaded', () => {
-            // Lucide icons 초기화 (아이콘 렌더링)
-            lucide.createIcons();
+            lucide.createIcons(); // 아이콘 렌더링
+            navigateTo('trend'); // 초기 페이지 설정
             
-            // 페이지 로드 시 'trend' 페이지를 기본으로 설정
-            navigateTo('trend'); 
-
-            // 탭 버튼 클릭 핸들러
+            // 탭 버튼 클릭 이벤트 리스너 설정
             const tabButtons = document.querySelectorAll('.tab-button');
             tabButtons.forEach(button => {
                 button.addEventListener('click', () => {
-                    const targetTabId = button.getAttribute('data-tab');
-                    setActiveTab(targetTabId);
+                    setActiveTab(button.getAttribute('data-tab'));
                 });
             });
 
-            // 창 크기가 변경될 때 인디케이터 위치 재조정 (반응형 대응)
+            // 창 크기 변경 시 탭 인디케이터 재조정
             window.addEventListener('resize', initializeTabs);
             
-            // 초기화 호출 (페이지 로드 시)
+            // 초기화 함수 호출
             initializeTabs();
-            // Inner tab 초기화
-            openInnerTab('ootd');
+            renderPromptOptions(); // 상세 옵션 UI 렌더링
         });
-
-        // Mock Login Handler
-        function handleLogin(event, type) {
-            event.preventDefault();
-            const uidStatus = document.getElementById('uid_status');
-            let uid = 'UID_default_user';
-
-            if (type === 'classic') {
-                const username = document.getElementById('username').value;
-                const password = document.getElementById('password').value;
-                if (!username || !password) {
-                    alertMessage('아이디와 비밀번호를 입력해주세요.');
-                    return;
-                }
-                uid = `UID_${username.substring(0, 5)}`;
-                alertMessage(`일반 로그인 시도: ${username}`);
-            } else if (type === 'google') {
-                uid = `UID_google_${Math.random().toString(16).substring(2, 8)}`;
-                alertMessage('Google 간편 로그인 시도 중...');
-            }
-            
-            uidStatus.textContent = `UID: ${uid} (로그인 완료)`;
-            uidStatus.classList.remove('text-cyan-400', 'text-red-400');
-            uidStatus.classList.add('text-green-400');
-        }
-
-        // Mock Trend Selection Handler
-        function selectTrend(trendName) {
-            alertMessage(`${trendName}을(를) 선택했습니다. 이제 '나만의 코디 생성하기' 탭으로 이동하세요!`);
-            // 탭 자동 전환 기능
-            setActiveTab('create-coordi'); 
-        }
-
-        // Custom Alert Message (alert() 대신 사용)
-        function alertMessage(message) {
-            console.log("ALERT:", message); // 콘솔에 로그 출력
-            const app = document.getElementById('app');
-            let msgBox = document.getElementById('custom-alert');
-
-            if (!msgBox) {
-                msgBox = document.createElement('div');
-                msgBox.id = 'custom-alert';
-                msgBox.className = 'fixed top-4 right-4 z-50 p-4 rounded-lg shadow-xl text-white bg-indigo-700 transition-opacity duration-300 opacity-0';
-                app.appendChild(msgBox);
-            }
-
-            msgBox.textContent = message;
-            msgBox.classList.remove('opacity-0');
-            msgBox.classList.add('opacity-100');
-
-            setTimeout(() => {
-                msgBox.classList.remove('opacity-100');
-                msgBox.classList.add('opacity-0');
-            }, 3000);
-        }
-
-        // 페이지 로드 후 Lucide 아이콘 다시 생성 (DOM 조작 후 필요할 수 있음)
-        window.onload = () => {
-            lucide.createIcons();
-        };
-
+        
     </script>
 </body>
 </html>

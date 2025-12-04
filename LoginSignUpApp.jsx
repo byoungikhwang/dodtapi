@@ -3,6 +3,10 @@ import { LogIn, UserPlus, Home, Mail, Lock } from 'lucide-react';
 
 // 메인 애플리케이션 컴포넌트
 const App = () => {
+  // 시뮬레이션용 상수 (실제 환경에서는 사용 금지)
+  const SIMULATED_SUCCESS_DOMAIN = '@success.com';
+  const SIMULATED_PASSWORD = '1234';
+
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -25,14 +29,10 @@ const App = () => {
     // 간단한 인증/가입 시뮬레이션
     setTimeout(() => {
       setLoading(false);
+      // isLogin이 true일 경우 로그인 로직 (현재 테스트를 위해 비활성화됨)
       if (isLogin) {
-        // 로그인 시도 (성공 조건: @success.com)
-        if (email.endsWith(' @success.com') && password === '1234') { 
-          setMessage(`'${email}'로 로그인 성공! 환영합니다.`);
-          console.log('로그인 성공:', email);
-        } else {
-          setMessage('로그인 실패: 이메일 또는 비밀번호가 올바르지 않습니다.');
-        }
+        setMessage('로그인 기능은 현재 테스트를 위해 비활성화되었습니다.');
+        console.log('로그인 기능 비활성화됨');
       } else {
         // 회원가입 시도
         setMessage(`'${email}'로 회원가입 성공! 이제 로그인해주세요.`);
@@ -40,7 +40,7 @@ const App = () => {
         // 가입 성공 후 입력 필드 초기화 및 로그인 화면으로 자동 전환
         setEmail('');
         setPassword('');
-        setIsLogin(true); 
+        setIsLogin(true);
       }
     }, 1500); // 1.5초 지연 시뮬레이션
   };
