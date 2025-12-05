@@ -26,12 +26,58 @@
             const [message, setMessage] = useState('');
             const [loading, setLoading] = useState(false);
 
+            const BACKEND_URL = "http://127.0.0.1:5000"; // 백엔드 서버 주소
+
             // 아이콘을 다시 렌더링하기 위한 useEffect
             useEffect(() => {
                 lucide.createIcons();
             }, [loading, isLogin, message]);
 
-            // 시뮬레이션된 API 호출 함수
+            // --- 새로운 Google 로그인 핸들러 ---
+            const handleGoogleLogin = async (e) => {
+                e.preventDefault();
+                // Google 로그인은 이메일만 사용합니다.
+                if (!email) {
+                    setMessage('백엔드와 연동하려면 이메일 주소를 입력해주세요.');
+                    return;
+                }
+                
+                setLoading(true);
+                setMessage('');
+
+                try {
+                    const response = await fetch(`${BACKEND_URL}/login/google`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ email: email }),
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        // 성공적으로 응답을 받았을 때
+                        setMessage(data.message || '로그인 성공! 환영합니다.');
+                        console.log('로그인 성공:', data);
+                        // 성공 시 1.5초 후 메인 페이지로 이동
+                        setTimeout(() => {
+                            window.location.href = 'index.html';
+                        }, 1500);
+                    } else {
+                        // 서버가 에러 응답을 보냈을 때
+                        setMessage(data.error || '로그인 중 오류가 발생했습니다.');
+                    }
+                } catch (error) {
+                    // 네트워크 오류 등 fetch 자체가 실패했을 때
+                    console.error('Fetch Error:', error);
+                    setMessage('서버에 연결할 수 없습니다. 백엔드 서버가 실행 중인지 확인해주세요.');
+                } finally {
+                    setLoading(false);
+                }
+            };
+
+            // 시뮬레이션된 기존 인증 함수 (참고용으로 남겨둠)
             const handleAuth = (e) => {
                 e.preventDefault();
                 setLoading(true);
@@ -48,17 +94,12 @@
                     if (isLogin) {
                         if (email.endsWith('@success.com') && password === '1234') { 
                             setMessage(`'${email}'로 로그인 성공! 환영합니다.`);
-                            console.log('로그인 성공:', email);
-                            // 성공 시 1.5초 후 index.html로 이동
-                            setTimeout(() => {
-                                window.location.href = 'index.html';
-                            }, 1500);
+                            setTimeout(() => { window.location.href = 'index.html'; }, 1500);
                         } else {
                             setMessage('로그인 실패: 이메일 또는 비밀번호가 올바르지 않습니다.');
                         }
                     } else {
                         setMessage(`'${email}'로 회원가입 성공! 이제 로그인해주세요.`);
-                        console.log('회원가입 성공:', email);
                         setEmail('');
                         setPassword('');
                         setIsLogin(true); 
@@ -93,20 +134,43 @@
                             </div>
                         )}
 
-                        <form onSubmit={handleAuth} className="space-y-4">
-                            <div className="relative">
-                                <i data-lucide="mail" className="absolute top-1/2 left-3 transform -translate-y-1/2 h-5 w-5 text-gray-400"></i>
-                                <input
-                                    type="email"
-                                    placeholder="이메일 주소"
-                                    required
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    className="w-full pl-10 pr-4 py-3 bg-indigo-600 border border-indigo-600 rounded-lg focus:ring-cyan-500 focus:border-cyan-500 focus:bg-white transition duration-150 ease-in-out"
-                                    disabled={loading}
-                                />
-                            </div>
+                        {/* --- 이메일 입력은 Google 로그인과 공유 --- */}
+                        <div className="relative mb-4">
+                            <i data-lucide="mail" className="absolute top-1/2 left-3 transform -translate-y-1/2 h-5 w-5 text-gray-400"></i>
+                            <input
+                                type="email"
+                                placeholder="이메일 주소"
+                                required
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                className="w-full pl-10 pr-4 py-3 bg-indigo-800 text-white border border-indigo-600 rounded-lg focus:ring-cyan-500 focus:border-cyan-500 transition duration-150 ease-in-out"
+                                disabled={loading}
+                            />
+                        </div>
 
+                        {/* --- Google 로그인 버튼 --- */}
+                        <button
+                            onClick={handleGoogleLogin}
+                            className="w-full flex items-center justify-center space-x-2 py-3 px-4 border border-transparent rounded-lg shadow-md text-base font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out disabled:opacity-60"
+                            disabled={loading}
+                        >
+                            {loading ? (
+                                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                            ) : (
+                                <><i data-lucide="log-in" className="h-5 w-5"></i><span>Google 계정으로 로그인</span></>
+                            )}
+                        </button>
+                        
+                        <div class="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
+                            <p class="mx-4 mb-0 text-center font-semibold text-slate-300">OR</p>
+                        </div>
+
+
+                        {/* --- 기존 이메일/비밀번호 폼 (이제 사용되지 않음) --- */}
+                        <form onSubmit={handleAuth} className="space-y-4 hidden">
                             <div className="relative">
                                 <i data-lucide="lock" className="absolute top-1/2 left-3 transform -translate-y-1/2 h-5 w-5 text-gray-400"></i>
                                 <input
@@ -114,7 +178,7 @@
                                     placeholder="비밀번호"
                                     required
                                     value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
+                                    onChange={(e) => setPassword(e.g.target.value)}
                                     className="w-full pl-10 pr-4 py-3 bg-indigo-600 border border-indigo-600 rounded-lg focus:ring-cyan-500 focus:border-cyan-500 focus:bg-white transition duration-150 ease-in-out"
                                     disabled={loading}
                                 />
@@ -125,19 +189,14 @@
                                 className="w-full flex items-center justify-center space-x-2 py-3 px-4 border border-transparent rounded-lg shadow-md text-base font-medium text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 transition duration-150 ease-in-out disabled:opacity-60"
                                 disabled={loading}
                             >
-                                {loading && (
-                                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                    </svg>
-                                )}
                                 {!loading && (isLogin ? 
                                     <><i data-lucide="log-in" className="h-5 w-5"></i><span>로그인</span></> : 
                                     <><i data-lucide="user-plus" className="h-5 w-5"></i><span>회원가입</span></>)}
                             </button>
                         </form>
 
-                        <div className="mt-6 text-center">
+                        {/* --- 회원가입 전환 링크 (숨김 처리) --- */}
+                        <div className="mt-6 text-center hidden">
                             <button
                                 onClick={() => {
                                     setIsLogin(!isLogin);

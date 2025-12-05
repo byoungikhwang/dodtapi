@@ -211,6 +211,14 @@
                     <div class="tabs-container rounded-t-xl rounded-b-lg p-1 shadow-2xl relative">
                         <div id="tabs" class="flex justify-around relative">
                             <button data-tab="trend-feed" class="tab-button flex-1 p-3 text-white font-semibold transition-all duration-300 hover:text-cyan-400 relative">OOTD</button>
+                            <div class="relative group flex-1">
+                                <button data-tab="beginner" class="tab-button w-full p-3 text-white font-semibold transition-all duration-300 hover:text-cyan-400 relative">Beginner</button>
+                                <div class="absolute z-10 hidden group-hover:block bg-indigo-900/90 border border-cyan-500/50 text-white py-2 rounded-lg shadow-xl w-full mt-1">
+                                    <a href="#" class="block px-4 py-2 text-sm hover:bg-cyan-400 hover:text-indigo-900 font-semibold">초보자</a>
+                                    <a href="#" class="block px-4 py-2 text-sm hover:bg-cyan-400 hover:text-indigo-900 font-semibold">중급자</a>
+                                    <a href="#" class="block px-4 py-2 text-sm hover:bg-cyan-400 hover:text-indigo-900 font-semibold">고급자</a>
+                                </div>
+                            </div>
                             <button data-tab="create-coordi" class="tab-button flex-1 p-3 text-white font-semibold transition-all duration-300 hover:text-cyan-400 relative">Create</button>
                             <button data-tab="results" class="tab-button flex-1 p-3 text-white font-semibold transition-all duration-300 hover:text-cyan-400 relative">Trendy</button>
                             <div id="tab-indicator" class="tab-highlight"></div>
@@ -625,12 +633,15 @@
          * @param {string} targetPage - 보여줄 페이지의 ID.
          */
         function navigateTo(targetPage) {
+            console.log(`[navigateTo] Target page: ${targetPage}`);
             currentPage = targetPage;
             document.querySelectorAll('.page-section').forEach(section => {
                 if (section.id === targetPage) {
                     section.classList.remove('hidden');
+                    console.log(`[navigateTo] Showing section: ${section.id}`);
                 } else {
                     section.classList.add('hidden');
+                    console.log(`[navigateTo] Hiding section: ${section.id}`);
                 }
             });
             if (targetPage === 'trend') initializeTabs(); 
@@ -641,6 +652,7 @@
          * 탭 UI를 초기화하고 활성 탭 인디케이터 위치를 설정합니다.
          */
         function initializeTabs() {
+            console.log('[initializeTabs] Initializing tabs for trend section.');
             const tabButtons = document.querySelectorAll('.tab-button');
             const tabIndicator = document.getElementById('tab-indicator');
             const initialButton = document.querySelector('.tab-button[data-tab="trend-feed"]');
@@ -661,6 +673,7 @@
          * @param {string} tabId - 활성화할 탭의 ID.
          */
         function setActiveTab(tabId) {
+            console.log(`[setActiveTab] Activating tab: ${tabId}`);
             const tabButtons = document.querySelectorAll('.tab-button');
             const tabIndicator = document.getElementById('tab-indicator');
             const tabPages = document.querySelectorAll('.tab-page');
@@ -668,8 +681,10 @@
             tabPages.forEach(page => {
                 if (page.id === tabId) {
                     page.classList.remove('hidden');
+                    console.log(`[setActiveTab] Showing tab page: ${page.id}`);
                 } else {
                     page.classList.add('hidden');
+                    console.log(`[setActiveTab] Hiding tab page: ${page.id}`);
                 }
             });
 
@@ -691,10 +706,10 @@
         }
 
         /**
-         * 'Create' 탭으로 바로 이동합니다. (요청에 따라 '홈'으로 라우팅 동작으로 변경)
+         * 'Create' 탭으로 바로 이동합니다.
          */
         function goToCreateCoordi() {
-            navigateTo('trend'); // '홈'에 해당하는 'trend' 페이지 섹션으로 이동
+            setActiveTab('create-coordi');
             window.scrollTo(0, 0);
         }
 
