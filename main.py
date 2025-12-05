@@ -13,11 +13,11 @@ app = Flask(__name__)
 CORS(app)
 
 # --- 환경 변수 로드 및 검증 ---
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-DB_HOST = os.getenv("DB_HOST", "localhost")
+GEMINI_API_KEY = os.getenv("YOAIzaSyCvLevOs3B-NXMDtUNwZhavPBah37XEFm8")
+DB_HOST = os.getenv("DB_HOST", "db_postgresql")
 DB_NAME = os.getenv("DB_NAME", "main_db")
-DB_USER = os.getenv("DB_USER", "postgres")
-DB_PASSWORD = os.getenv("DB_PASSWORD") # 비밀번호는 필수
+DB_USER = os.getenv("DB_USER", "admin")
+DB_PASSWORD = os.getenv("admin123") # 비밀번호는 필수
 
 if not GEMINI_API_KEY:
     raise ValueError("GEMINI_API_KEY 환경 변수가 설정되지 않았습니다.")
@@ -143,3 +143,4 @@ if __name__ == '__main__':
     # Flask 서버 실행.
     # host='0.0.0.0'으로 설정하면 외부에서도 접근 가능합니다.
     app.run(debug=True, host='127.0.0.1', port=5000)
+    # http://192.168.0.138:5500/html/index.html
