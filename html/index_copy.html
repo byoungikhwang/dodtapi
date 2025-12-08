@@ -233,28 +233,40 @@
                     <div id="trend-feed" class="tab-page">
                         <h2 class="text-2xl font-bold text-white mb-4">오늘의 코디 추천 (OOTD)</h2>
                         <p class="text-purple-200 mb-6">AI가 추천하는 데일리 룩을 확인하고 영감을 얻어보세요.</p>
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                            <div class="relative rounded-xl overflow-hidden shadow-lg transform transition duration-300 hover:scale-[1.02]">
-                                <img src="/image/tab_3.png" alt="OOTD Look 1 - Trench Coat" class="w-full h-full object-cover">
-                                <div class="absolute inset-0 bg-black bg-opacity-20 flex items-end p-3">
-                                    <span class="text-xs font-medium text-white p-1 rounded bg-black bg-opacity-50">#클래식</span>
-                                </div>
-                            </div>
-                            <div class="relative rounded-xl overflow-hidden shadow-lg transform transition duration-300 hover:scale-[1.02]">
-                                <img src="/image/tab_2.png" alt="OOTD Look 2 - Blazer Shorts" class="w-full h-full object-cover">
-                                <div class="absolute inset-0 bg-black bg-opacity-20 flex items-end p-3">
-                                    <span class="text-xs font-medium text-white p-1 rounded bg-black bg-opacity-50">#캐주얼</span>
-                                </div>
-                            </div>
-                            <div class="relative rounded-xl overflow-hidden shadow-lg transform transition duration-300 hover:scale-[1.02]">
-                                <img src="/image/tab_1.png" alt="OOTD Look 3 - Neon Leather" class="w-full h-full object-cover">
-                                <div class="absolute inset-0 bg-black bg-opacity-20 flex items-end p-3">
-                                    <span class="text-xs font-medium text-white p-1 rounded bg-black bg-opacity-50">#스트릿</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                                                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                                        <div class="relative rounded-xl overflow-hidden shadow-lg transform transition duration-300 hover:scale-[1.02]">
+                                                            <img src="/image/tab_3.png" alt="OOTD Look 1 - Trench Coat" class="w-full h-full object-cover">
+                                                            <div class="absolute inset-0 bg-black bg-opacity-20 flex items-end p-3">
+                                                                <span class="text-xs font-medium text-white p-1 rounded bg-black bg-opacity-50">#클래식</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="relative rounded-xl overflow-hidden shadow-lg transform transition duration-300 hover:scale-[1.02]">
+                                                            <img src="/image/tab_2.png" alt="OOTD Look 2 - Blazer Shorts" class="w-full h-full object-cover">
+                                                            <div class="absolute inset-0 bg-black bg-opacity-20 flex items-end p-3">
+                                                                <span class="text-xs font-medium text-white p-1 rounded bg-black bg-opacity-50">#캐주얼</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="relative rounded-xl overflow-hidden shadow-lg transform transition duration-300 hover:scale-[1.02]">
+                                                            <img src="/image/tab_1.png" alt="OOTD Look 3 - Neon Leather" class="w-full h-full object-cover">
+                                                            <div class="absolute inset-0 bg-black bg-opacity-20 flex items-end p-3">
+                                                                <span class="text-xs font-medium text-white p-1 rounded bg-black bg-opacity-50">#스트릿</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Trending Now Section -->
+                                                    <div class="mt-8">
+                                                        <h3 class="text-xl font-bold text-white mb-4">Trending Now</h3>
+                                                            <a href="https://woman.donga.com/fashion" target="_blank" class="block bg-gradient-to-r from-purple-600 to-cyan-500 hover:from-purple-700 hover:to-cyan-600 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-cyan-500/50 p-4 rounded-xl flex items-center justify-between text-white">
+                                                                <div>
+	                                                                <span class="font-bold">트랜디한 패션 정보 및 뉴스[여성동아 패션 채널] 클릭</span>
+	                                                                <span class="block text-sm text-cyan-200 mt-1">https://woman.donga.com/fashion</span>
+                                                                </div>
+                                                                	<i data-lucide="chevron-right" class="w-6 h-6 text-white"></i>
+                                                            </a>                                                                               
+                                                        <!-- <a href="https://woman.donga.com/fashion" target="_blank" class="block bg-gradient-to-r from-purple-600 to-cyan-500 hover:from-purple-700 hover:to-cyan-600 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-cyan-500/50 p-4 rounded-xl flex items-center justify-between text-white font-bold">
+                                                            <span>여성동아 패션 채널 트랜디한 패션 정보 및 뉴스 클릭</span>
+                                                            <i data-lucide="chevron-right" class="w-6 h-6 text-white"></i>
+                                                        </a> -->
                     <!-- 탭 2: Create (나만의 AI 코디 생성) -->
                     <div id="create-coordi" class="tab-page hidden">
                         <div class="bg-indigo-900/40 rounded-2xl p-6 border border-indigo-500/30 shadow-xl">
@@ -269,10 +281,10 @@
                                             <span class="flex items-center justify-center w-6 h-6 rounded-full bg-purple-600 text-xs text-white">1</span>
                                             내 사진 업로드
                                         </label>
-                                        <div class="upload-area flex-grow rounded-xl flex items-center justify-center min-h-[300px] cursor-pointer" onclick="document.getElementById('file-input').click()">
+                                        <div class="upload-area flex-grow rounded-xl flex items-center justify-center cursor-pointer h-[400px] relative overflow-hidden" onclick="document.getElementById('file-input').click()">
                                             <input type="file" id="file-input" accept="image/*" class="hidden" onchange="previewImage(event)">
-                                            <img id="image-preview" class="hidden w-full h-full object-contain" alt="미리보기">
-                                            <div id="upload-placeholder" class="text-center">
+                                            <img id="image-preview" class="hidden absolute inset-0 w-full h-full object-contain z-10" alt="미리보기">
+                                            <div id="upload-placeholder" class="text-center z-0">
                                                 <i data-lucide="image-plus" class="w-10 h-10 text-cyan-300 mb-2"></i>
                                                 <p class="text-white font-medium">자신의 얼굴, 반신샷 선택</p>
                                                 <p class="text-white font-medium">클릭하여 사진 업로드</p>
@@ -336,6 +348,9 @@
                                 <button id="generate-button" onclick="generateCoordi()" class="w-full py-4 font-bold rounded-xl cyan-button" disabled>
                                     AI 코디 생성하기
                                 </button>
+                                <button onclick="navigateTo('mypage')" class="p-4 px-8 font-bold rounded-xl cyan-button text-lg">
+                                            나의 페이지 ->
+                                </button>
                             </div>
                             <!-- 결과 표시 영역 -->
                             <div id="result-area" class="mt-12 hidden border-t border-indigo-500/30 pt-10">
@@ -354,6 +369,9 @@
                                     <button onclick="downloadResult()" class="mt-4 w-full max-w-md py-2 bg-white text-black font-bold rounded-lg hover:bg-gray-200">
                                         이미지 저장하기
                                     </button>
+                                    <button onclick="navigateTo('mypage')" class="p-4 px-8 font-bold rounded-xl cyan-button text-lg">
+                                            나의 페이지 ->
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -369,7 +387,7 @@
                 <!-- 페이지 이동 버튼 -->
                 <section class="mt-12 text-center">
                     <button onclick="goToCreateCoordi()" class="p-4 px-8 font-bold rounded-xl cyan-button text-lg">
-                        나만의 코디 생성하러 가기
+                         나만의 코디 생성하러 가기
                     </button>
                 </section>
             </div>
@@ -394,14 +412,68 @@
                 </div>
             </div>
             
-            <!-- 페이지 섹션 3: AI 소개 -->
-            <div id="ai" class="page-section hidden p-8 text-center bg-indigo-900/40 rounded-xl shadow-inner">
-                <h2 class="text-4xl font-extrabold mb-8 text-cyan-400">AI 소개 페이지</h2>
-                <p class="text-xl text-gray-300">이곳은 AI 기술과 이미지-투-이미지 생성 원리를 설명하는 페이지입니다.</p>
-                <button onclick="navigateTo('trend')" class="mt-4 p-3 bg-fuchsia-600 rounded-xl hover:bg-fuchsia-700 font-bold">메인 페이지로 돌아가기</button>
+<!-- 페이지 섹션 3: AI 소개 (수정된 부분) -->
+            <div id="ai" class="page-section hidden p-8 bg-indigo-900/40 rounded-xl shadow-2xl relative overflow-hidden">
+                <!-- 배경 장식 요소 -->
+                <div class="absolute top-0 right-0 p-10 opacity-10 pointer-events-none">
+                    <i data-lucide="cpu" class="w-64 h-64 text-cyan-500"></i>
+                </div>
+                
+                <div class="relative z-10 text-center mb-12">
+                    <h2 class="text-4xl font-extrabold mb-6 text-cyan-400 neon-text">AI Tech Behind LOUD</h2>
+                    <p class="text-gray-300 text-lg leading-relaxed max-w-3xl mx-auto">
+                        단 한 장의 사진으로 시작되는 무한한 패션의 세계.<br>
+                        Google Gemini의 최신 이미지 생성 모델이 당신의 상상을 현실로 만듭니다.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10 mb-12">
+                    <!-- Feature 1 -->
+                    <div class="bg-black/20 p-8 rounded-2xl border border-indigo-500/30 hover:border-cyan-400 transition duration-300 hover:transform hover:-translate-y-2 group">
+                        <div class="w-16 h-16 bg-indigo-600/50 rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:bg-indigo-600 transition duration-300">
+                            <i data-lucide="sparkles" class="w-8 h-8 text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3 text-center text-cyan-200">Generative Style Transfer</h3>
+                        <!-- 수정: 전문적인 설명 -> 쉬운 설명 -->
+                        <p class="text-gray-400 text-sm text-center leading-relaxed">
+                            사진 위에 옷을 단순히 오려 붙이는 게 아니에요. 마치 내가 실제로 그 옷을 입고 찍은 것처럼, 옷의 주름과 재질까지 아주 자연스럽게 만들어줍니다.
+                        </p>
+                    </div>
+
+                    <!-- Feature 2 -->
+                    <div class="bg-black/20 p-8 rounded-2xl border border-indigo-500/30 hover:border-cyan-400 transition duration-300 hover:transform hover:-translate-y-2 group">
+                        <div class="w-16 h-16 bg-purple-600/50 rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:bg-purple-600 transition duration-300">
+                            <i data-lucide="scan-face" class="w-8 h-8 text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3 text-center text-cyan-200">Identity Preservation</h3>
+                        <!-- 수정: 전문적인 설명 -> 쉬운 설명 -->
+                        <p class="text-gray-400 text-sm text-center leading-relaxed">
+                            옷을 갈아입혀도 내 얼굴이 다른 사람처럼 변할까 걱정하지 마세요. AI가 내 눈, 코, 입을 정확히 알아보고 내 얼굴 그대로 유지해줍니다.
+                        </p>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div class="bg-black/20 p-8 rounded-2xl border border-indigo-500/30 hover:border-cyan-400 transition duration-300 hover:transform hover:-translate-y-2 group">
+                        <div class="w-16 h-16 bg-cyan-600/50 rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:bg-cyan-600 transition duration-300">
+                            <i data-lucide="wand-2" class="w-8 h-8 text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3 text-center text-cyan-200">Context Awareness</h3>
+                        <!-- 수정: 전문적인 설명 -> 쉬운 설명 -->
+                        <p class="text-gray-400 text-sm text-center leading-relaxed">
+                            옷만 덩그러니 바뀌면 어색하겠죠? '해변', '카페' 같은 장소만 정해주세요. 그 옷에 딱 어울리는 배경과 조명까지 AI가 알아서 척척 꾸며줍니다.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="text-center relative z-10">
+                    <!-- 수정: 버튼 텍스트 및 이동 경로 (생성 페이지 -> 메인 페이지) -->
+                    <button onclick="navigateTo('trend')" class="p-4 px-12 font-bold rounded-xl cyan-button text-lg shadow-lg hover:shadow-cyan-500/50 transition flex items-center gap-2 mx-auto">
+                        <span>메인 페이지로 가기</span>
+                        <i data-lucide="home" class="w-5 h-5"></i>
+                    </button>
+                    <p class="mt-4 text-gray-500 text-sm">Powered by Google Gemini</p>
+                </div>
             </div>
-        </main>
-    </div>
 
     <!-- 알림 모달: showAlert() 함수를 통해 제어됨 -->
     <div id="custom-alert" class="fixed top-5 right-5 z-50 transform translate-x-full transition-transform duration-300">
@@ -441,57 +513,57 @@
             {
                 category: "📷 카메라 위치와 구도 (Shot Type)",
                 items: [
-                    { label: "풀 샷 (전신)", value: "Full body shot, wide shot" },
-                    { label: "롱 샷 (원거리)", value: "Long shot, far view" },
-                    { label: "익스트림 롱 샷", value: "Extreme long shot, vast background" },
-                    { label: "니 샷 (무릎 위)", value: "Knee shot, 3/4 shot, from knees up" },
-                    { label: "웨이스트 샷 (허리 위)", value: "Waist shot, medium shot, from waist up" },
-                    { label: "바스트 샷 (가슴 위)", value: "Bust shot, chest up" },
-                    { label: "클로즈업 (얼굴)", value: "Close-up shot of face" },
+                    { label: "전신", value: "Full body shot, wide shot" },
+                    // { label: "롱 샷 (원거리)", value: "Long shot, far view" },
+                    // { label: "익스트림 롱 샷", value: "Extreme long shot, vast background" },
+                    { label: "무릎 위", value: "Knee shot, 3/4 shot, from knees up" },
+                    { label: "허리 위", value: "Waist shot, medium shot, from waist up" },
+                    { label: "가슴 위", value: "Bust shot, chest up" },
+                    // { label: "클로즈업 (얼굴)", value: "Close-up shot of face" },
                     { label: "익스트림 클로즈업", value: "Extreme close-up, detailed eyes" },
                     { label: "숄더 샷", value: "Over the shoulder shot" },
                     { label: "정면", value: "Front view, facing camera" },
                     { label: "측면 ", value: "Side profile view" },
                     { label: "45도 측면", value: "Three-quarter view, 45-degree angle" },
                     { label: "뒷면 ", value: "Back view, from behind" },
-                    { label: "로우 앵글", value: "Low angle shot, looking up" },
-                    { label: "하이 앵글", value: "High angle shot, looking down" }
+                    { label: "낮은 시선", value: "Low angle shot, looking up" },
+                    { label: "높은 시선", value: "High angle shot, looking down" }
                 ]
             },
             {
                 category: "📍 장소 및 상황 (TPO)",
                 items: [
-                    { label: "예식장 (하객룩)", value: "Wedding guest look, Wedding hall background" },
+                    { label: "예식장", value: "Wedding guest look, Wedding hall background" },
                     { label: "쇼핑몰", value: "Shopping mall background, Shopping outfit" },
-                    { label: "카페 (데이트)", value: "Cafe date outfit, Cafe background" },
+                    { label: "카페", value: "Cafe date outfit, Cafe background" },
                     { label: "친구 만남", value: "Hangout with friends, Casual street background" },
-                    { label: "사무실 (출근)", value: "Office wear, Modern office background" },
-                    { label: "피트니스 (운동)", value: "Gym wear, Fitness center background" },
+                    { label: "사무실", value: "Office wear, Modern office background" },
+                    { label: "피트니스", value: "Gym wear, Fitness center background" },
                     { label: "공항 패션", value: "Airport fashion, Airport terminal background" },
-                    { label: "휴양지 (해변)", value: "Beach resort wear, Sunny beach background" },
+                    { label: "휴양지, 해변", value: "Beach resort wear, Sunny beach background" },
                     { label: "캠퍼스", value: "University campus background, College student look" }
                 ]
             },
             {
                 category: "🌤️ 날씨 및 계절",
                 items: [
-                    { label: "맑은 날 (화창함)", value: "Sunny day, Clear blue sky, Bright lighting" },
-                    { label: "흐린 날 (차분함)", value: "Cloudy day, Overcast sky, Soft lighting" },
-                    { label: "비오는 날 (우산)", value: "Rainy day, Wet streets, Holding an umbrella" },
-                    { label: "눈오는 날 (겨울)", value: "Snowy day, Winter fashion, Snow background" },
-                    { label: "바람 부는 날", value: "Windy day, Hair blowing in wind" },
-                    { label: "봄 (벚꽃)", value: "Spring season, Cherry blossoms background" },
-                    { label: "가을 (낙엽)", value: "Autumn season, Falling leaves background" },
-                    { label: "해 질 녘 (노을)", value: "Golden hour, Sunset lighting" }
+                    { label: "화창한", value: "Sunny day, Clear blue sky, Bright lighting" },
+                    { label: "흐린", value: "Cloudy day, Overcast sky, Soft lighting" },
+                    { label: "비오는", value: "Rainy day, Wet streets, Holding an umbrella" },
+                    { label: "눈 내리는", value: "Snowy day, Winter fashion, Snow background" },
+                    { label: "바람 부는", value: "Windy day, Hair blowing in wind" },
+                    { label: "봄", value: "Spring season, Cherry blossoms background" },
+                    { label: "가을", value: "Autumn season, Falling leaves background" },
+                    { label: "해질녘", value: "Golden hour, Sunset lighting" }
                 ]
             },
             {
                 category: "✨ 화질 및 퀄리티",
                 items: [
-                    { label: "사진과 같은 현실감", value: "Photorealistic" },
-                    { label: "초현실적인 디테일", value: "Hyper-realistic" },
-                    { label: "초고해상도 (8K)", value: "8k_resolution" },
-                    { label: "매우 정밀한 묘사", value: "Highly_detailed" },
+                    { label: "사진(현실감)", value: "Photorealistic" },
+                    { label: "초현실적인", value: "Hyper-realistic" },
+                    { label: "초고해상도", value: "8k_resolution" },
+                    { label: "정밀한 묘사", value: "Highly_detailed" },
                     { label: "걸작", value: "Masterpiece" }
                 ]
             }
