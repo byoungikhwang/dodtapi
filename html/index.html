@@ -346,9 +346,9 @@
                                 <button id="generate-button" onclick="generateCoordi()" class="w-full py-4 font-bold rounded-xl cyan-button" disabled>
                                     AI 코디 생성하기
                                 </button>
-                                <button onclick="navigateTo('mypage')" class="p-4 px-8 font-bold rounded-xl cyan-button text-lg">
+                                <!-- <button onclick="navigateTo('mypage')" class="p-4 px-8 font-bold rounded-xl cyan-button text-lg">
                                             나의 페이지 ->
-                                </button>
+                                </button> -->
                             </div>
                             <!-- 결과 표시 영역 -->
                             <div id="result-area" class="mt-12 hidden border-t border-indigo-500/30 pt-10">
@@ -367,9 +367,9 @@
                                     <button onclick="downloadResult()" class="mt-4 w-full max-w-md py-2 bg-white text-black font-bold rounded-lg hover:bg-gray-200">
                                         이미지 저장하기
                                     </button>
-                                    <button onclick="navigateTo('mypage')" class="p-4 px-8 font-bold rounded-xl cyan-button text-lg">
+                                    <!-- <button onclick="navigateTo('mypage')" class="p-4 px-8 font-bold rounded-xl cyan-button text-lg">
                                             나의 페이지 ->
-                                    </button>
+                                    </button> -->
                                 </div>
                             </div>
                         </div>
@@ -383,10 +383,38 @@
                 </div>
 
                 <!-- 페이지 이동 버튼 -->
-                <section class="mt-12 text-center">
+                <!-- <section class="mt-12 text-center">
                     <button onclick="goToCreateCoordi()" class="p-4 px-8 font-bold rounded-xl cyan-button text-lg">
                          나만의 코디 생성하러 가기
                     </button>
+                </section> -->
+                 <!-- [수정된 부분] 페이지 이동 버튼 그룹: 모든 버튼 사이즈(flex-1, h-24) 동일하게 통일 -->
+                <section class="mt-12">
+                    <div class="flex flex-wrap justify-center items-stretch gap-3 sm:gap-4 max-w-4xl mx-auto">
+                        <!-- 1. 라이브러리: flex-1, h-24 적용 -->
+                        <button onclick="navigateTo('results'); setActiveTab('results')" class="flex-1 min-w-[70px] h-24 flex flex-col items-center justify-center p-2 bg-gray-800/50 hover:bg-indigo-600/50 rounded-xl border border-white/10 transition-all">
+                            <i data-lucide="library" class="w-6 h-6 mb-2 text-gray-300"></i>
+                            <span class="text-xs sm:text-sm text-gray-300 font-bold">라이브러리</span>
+                        </button>
+
+                        <!-- 2. 홈: flex-1, h-24 적용 -->
+                        <button onclick="navigateTo('trend')" class="flex-1 min-w-[70px] h-24 flex flex-col items-center justify-center p-2 bg-gray-800/50 hover:bg-indigo-600/50 rounded-xl border border-white/10 transition-all">
+                            <i data-lucide="home" class="w-6 h-6 mb-2 text-gray-300"></i>
+                            <span class="text-xs sm:text-sm text-gray-300 font-bold">홈</span>
+                        </button>
+
+                        <!-- 3. 코디 생성하기: flex-[2] -> flex-1 변경하여 크기 동일화, h-24 적용 -->
+                        <button onclick="goToCreateCoordi()" class="flex-1 min-w-[70px] h-24 flex flex-col items-center justify-center p-2 bg-gray-800/50 hover:bg-indigo-600/50 rounded-xl border border-white/10 transition-all">
+                            <i data-lucide="shirt" class="w-6 h-6 mb-2 text-gray-300"></i>
+                            <span class="text-xs sm:text-sm text-gray-300 font-bold">코디 생성</span>
+                        </button>
+
+                        <!-- 4. 마이페이지: flex-1, h-24 적용 -->
+                        <button onclick="navigateTo('mypage')" class="flex-1 min-w-[70px] h-24 flex flex-col items-center justify-center p-2 bg-gray-800/50 hover:bg-indigo-600/50 rounded-xl border border-white/10 transition-all">
+                            <i data-lucide="user" class="w-6 h-6 mb-2 text-gray-300"></i>
+                            <span class="text-xs sm:text-sm text-gray-300 font-bold">마이페이지</span>
+                        </button>
+                    </div>
                 </section>
             </div>
             
@@ -407,6 +435,42 @@
                         <img src="https://placehold.co/400x400/312e81/ffffff?text=Generated+Image+1" alt="생성이미지 1" class="w-full history-image">
                         <div class="p-3 text-sm text-center bg-indigo-900/70">Urban Chic Style</div>
                     </div>
+                    <div class="rounded-xl overflow-hidden shadow-lg border border-indigo-500/50">
+                        <img src="https://placehold.co/400x400/312e81/ffffff?text=Generated+Image+2" alt="생성이미지 2" class="w-full history-image">
+                        <div class="p-3 text-sm text-center bg-indigo-900/70">Street Vibe</div>
+                    </div>
+                    <div class="rounded-xl overflow-hidden shadow-lg border border-indigo-500/50">
+                        <img src="https://placehold.co/400x400/312e81/ffffff?text=Generated+Image+3" alt="생성이미지 3" class="w-full history-image">
+                        <div class="p-3 text-sm text-center bg-indigo-900/70">Vintage Mood</div>
+                    </div>
+                </div>
+                <section class="mt-12">
+                    <div class="flex flex-wrap justify-center items-stretch gap-3 sm:gap-4 max-w-4xl mx-auto">
+                        <!-- 1. 라이브러리: flex-1, h-24 적용 -->
+                        <button onclick="navigateTo('results'); setActiveTab('results')" class="flex-1 min-w-[70px] h-24 flex flex-col items-center justify-center p-2 bg-gray-800/50 hover:bg-indigo-600/50 rounded-xl border border-white/10 transition-all">
+                            <i data-lucide="library" class="w-6 h-6 mb-2 text-gray-300"></i>
+                            <span class="text-xs sm:text-sm text-gray-300 font-bold">라이브러리</span>
+                        </button>
+
+                        <!-- 2. 홈: flex-1, h-24 적용 -->
+                        <button onclick="navigateTo('trend')" class="flex-1 min-w-[70px] h-24 flex flex-col items-center justify-center p-2 bg-gray-800/50 hover:bg-indigo-600/50 rounded-xl border border-white/10 transition-all">
+                            <i data-lucide="home" class="w-6 h-6 mb-2 text-gray-300"></i>
+                            <span class="text-xs sm:text-sm text-gray-300 font-bold">홈</span>
+                        </button>
+
+                        <!-- 3. 코디 생성하기: flex-[2] -> flex-1 변경하여 크기 동일화, h-24 적용 -->
+                        <button onclick="goToCreateCoordi()" class="flex-1 min-w-[70px] h-24 flex flex-col items-center justify-center p-2 bg-gray-800/50 hover:bg-indigo-600/50 rounded-xl border border-white/10 transition-all">
+                            <i data-lucide="shirt" class="w-6 h-6 mb-2 text-gray-300"></i>
+                            <span class="text-xs sm:text-sm text-gray-300 font-bold">코디 생성</span>
+                        </button>
+
+                        <!-- 4. 마이페이지: flex-1, h-24 적용 -->
+                        <button onclick="navigateTo('mypage')" class="flex-1 min-w-[70px] h-24 flex flex-col items-center justify-center p-2 bg-gray-800/50 hover:bg-indigo-600/50 rounded-xl border border-white/10 transition-all">
+                            <i data-lucide="user" class="w-6 h-6 mb-2 text-gray-300"></i>
+                            <span class="text-xs sm:text-sm text-gray-300 font-bold">마이페이지</span>
+                        </button>
+                    </div>
+                </section>
                 </div>
             </div>
             
@@ -779,6 +843,7 @@
          * 'Create' 탭으로 바로 이동합니다.
          */
         function goToCreateCoordi() {
+            navigateTo('trend');
             setActiveTab('create-coordi');
             window.scrollTo(0, 0);
         }
