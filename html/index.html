@@ -13,7 +13,7 @@
         /* --- 기본 및 전역 스타일 --- */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #1a0033; /* 깊은 보라색 배경 */
+            background-color: #ffffff; /* 깊은 보라색 배경 */
             color: #ffffff;
             line-height: 1.6;
         }
@@ -59,7 +59,7 @@
 
         /* --- 페이지별 섹션 스타일 --- */
         /* 메인 헤더 배경 */
-        .splash-bg {
+        /* .splash-bg {
             background-color: #1a0033;
             min-height: 35vh;
             display: flex;
@@ -70,7 +70,7 @@
             background-image: url('../image/main.png');
             background-size: cover;
             background-position: center;
-        }
+        } */
         /* 헤더 배경 위 텍스트 가독성을 위한 오버레이 */
         .splash-bg::after {
             content: '';
@@ -193,12 +193,44 @@
             </nav>
 
             <!-- 로고 영역 -->
-            <div class="flex flex-col items-center justify-center h-full my-auto relative z-10"> 
+            <!-- <div class="flex flex-col items-center justify-center h-full my-auto relative z-10"> 
                 <div class="neon-circle-border p-3 w-fit">
                     <img src="../image/logo2.png" alt="Logo" class="h-24">
                 </div>
-            </div>
+            </div> -->
         </header>
+
+        <!-- [수정된 부분] 페이지 이동 버튼 그룹: 모든 버튼 사이즈(flex-1, h-24) 동일하게 통일 -->
+        <section class="mt-12">
+            <div class="flex flex-wrap justify-center items-stretch gap-3 sm:gap-4 max-w-4xl mx-auto">
+                <!-- 1. 라이브러리: flex-1, h-24 적용 -->
+                <button onclick="navigateTo('results'); setActiveTab('results')" class="flex-1 min-w-[70px] h-24 flex flex-col items-center justify-center p-2 bg-gray-800/50 hover:bg-indigo-600/50 rounded-xl border border-white/10 transition-all">
+                    <i data-lucide="library" class="w-6 h-6 mb-2 text-gray-300"></i>
+                    <span class="text-xs sm:text-sm text-gray-300 font-bold">라이브러리</span>
+                </button>
+
+                <!-- 2. 홈: flex-1, h-24 적용 -->
+                <!-- <button onclick="navigateTo('trend')" class="flex-1 min-w-[70px] h-24 flex flex-col items-center justify-center p-2 bg-gray-800/50 hover:bg-indigo-600/50 rounded-xl border border-white/10 transition-all"> -->
+                    <!-- <i data-lucide="home" class="w-6 h-6 mb-2 text-gray-300"></i> -->
+                    <!-- <img src="../image/home.png" alt="홈 아이콘" class="w-6 h-6 mb-2 object-contain"> -->
+                    <!-- <span class="text-xs sm:text-sm text-gray-300 font-bold">home</span> -->
+                <button onclick="navigateTo('trend')" class="flex-1 min-w-[70px] h-24 flex flex-col items-center justify-center p-2 bg-gray-800/50 hover:bg-indigo-600/50 rounded-xl border border-white/10 transition-all">
+	                <img src="../image/home.png" alt="홈" class="w-6 h-6 mb-2 object-contain">
+                </button>
+
+                <!-- 3. 코디 생성하기: flex-[2] -> flex-1 변경하여 크기 동일화, h-24 적용 -->
+                <button onclick="goToCreateCoordi()" class="flex-1 min-w-[70px] h-24 flex flex-col items-center justify-center p-2 bg-gray-800/50 hover:bg-indigo-600/50 rounded-xl border border-white/10 transition-all">
+                    <i data-lucide="shirt" class="w-6 h-6 mb-2 text-gray-300"></i>
+                    <span class="text-xs sm:text-sm text-gray-300 font-bold">코디 생성</span>
+                </button>
+
+                <!-- 4. 마이페이지: flex-1, h-24 적용 -->
+                <button onclick="navigateTo('mypage')" class="flex-1 min-w-[70px] h-24 flex flex-col items-center justify-center p-2 bg-gray-800/50 hover:bg-indigo-600/50 rounded-xl border border-white/10 transition-all">
+                    <i data-lucide="user" class="w-6 h-6 mb-2 text-gray-300"></i>
+                    <span class="text-xs sm:text-sm text-gray-300 font-bold">마이페이지</span>
+                </button>
+            </div>
+        </section>
 
         <!-- 2. 메인 콘텐츠 영역 -->
         <main class="container mx-auto px-4 py-8 max-w-7xl">
@@ -209,18 +241,18 @@
                 <!-- 탭 네비게이션 -->
                 <section class="mb-8">
                     <div class="tabs-container rounded-t-xl rounded-b-lg p-1 shadow-2xl relative">
-                        <div id="tabs" class="flex justify-around relative">
-                            <button data-tab="trend-feed" class="tab-button flex-1 p-3 text-white font-semibold transition-all duration-300 hover:text-cyan-400 relative">OOTD</button>
+                        <div id="tabs" class="flex relative">
+                            <button data-tab="trend-feed" class="tab-button flex-1 p-3 text-white font-semibold transition-all duration-300 relative rounded-t-xl">OOTD</button>
                             <div class="relative group flex-1">
-                                <button data-tab="beginner" class="tab-button w-full p-3 text-white font-semibold transition-all duration-300 hover:text-cyan-400 relative">Beginner</button>
+                                <button data-tab="beginner" class="tab-button w-full p-3 text-white font-semibold transition-all duration-300 relative rounded-t-xl">Beginner</button>
                                 <div class="absolute z-10 hidden group-hover:block bg-indigo-900/90 border border-cyan-500/50 text-white py-2 rounded-lg shadow-xl w-full mt-1">
                                     <a href="#" class="block px-4 py-2 text-sm hover:bg-cyan-400 hover:text-indigo-900 font-semibold">초보자</a>
                                     <a href="#" class="block px-4 py-2 text-sm hover:bg-cyan-400 hover:text-indigo-900 font-semibold">중급자</a>
                                     <a href="#" class="block px-4 py-2 text-sm hover:bg-cyan-400 hover:text-indigo-900 font-semibold">고급자</a>
                                 </div>
                             </div>
-                            <button data-tab="create-coordi" class="tab-button flex-1 p-3 text-white font-semibold transition-all duration-300 hover:text-cyan-400 relative">Create</button>
-                            <button data-tab="results" class="tab-button flex-1 p-3 text-white font-semibold transition-all duration-300 hover:text-cyan-400 relative">Trendy</button>
+
+                            <button data-tab="results" class="tab-button flex-1 p-3 text-white font-semibold transition-all duration-300 relative rounded-t-xl">Trendy</button>
                             <div id="tab-indicator" class="tab-highlight"></div>
                         </div>
                     </div>
@@ -232,7 +264,7 @@
                     <!-- 탭 1: OOTD (오늘의 코디 추천) -->
                     <div id="trend-feed" class="tab-page">
                         <h2 class="text-2xl font-bold text-white mb-4">오늘의 코디 추천 (OOTD)</h2>
-                        <p class="text-purple-200 mb-6">AI가 추천하는 데일리 룩을 확인하고 영감을 얻어보세요.</p>
+                        <!-- <p class="text-purple-200 mb-6">AI가 추천하는 데일리 룩을 확인하고 영감을 얻어보세요.</p> -->
                                                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                                                         <div class="relative rounded-xl overflow-hidden shadow-lg transform transition duration-300 hover:scale-[1.02]">
                                                             <img src="/image/tab_3.png" alt="OOTD Look 1 - Trench Coat" class="w-full h-full object-cover">
@@ -388,28 +420,34 @@
                          나만의 코디 생성하러 가기
                     </button>
                 </section> -->
+                <!-- 페이지 이동 버튼 -->
+                <!-- <section class="mt-12 text-center">
+                    <button onclick="goToCreateCoordi()" class="p-4 px-8 font-bold rounded-xl cyan-button text-lg">
+                         나만의 코디 생성하러 가기
+                    </button>
+                </section> -->
                  <!-- [수정된 부분] 페이지 이동 버튼 그룹: 모든 버튼 사이즈(flex-1, h-24) 동일하게 통일 -->
-                <section class="mt-12">
+                <!-- <section class="mt-12">
                     <div class="flex flex-wrap justify-center items-stretch gap-3 sm:gap-4 max-w-4xl mx-auto">
-                        <!-- 1. 라이브러리: flex-1, h-24 적용 -->
+                        1. 라이브러리: flex-1, h-24 적용
                         <button onclick="navigateTo('results'); setActiveTab('results')" class="flex-1 min-w-[70px] h-24 flex flex-col items-center justify-center p-2 bg-gray-800/50 hover:bg-indigo-600/50 rounded-xl border border-white/10 transition-all">
                             <i data-lucide="library" class="w-6 h-6 mb-2 text-gray-300"></i>
                             <span class="text-xs sm:text-sm text-gray-300 font-bold">라이브러리</span>
                         </button>
 
-                        <!-- 2. 홈: flex-1, h-24 적용 -->
+                        2. 홈: flex-1, h-24 적용
                         <button onclick="navigateTo('trend')" class="flex-1 min-w-[70px] h-24 flex flex-col items-center justify-center p-2 bg-gray-800/50 hover:bg-indigo-600/50 rounded-xl border border-white/10 transition-all">
                             <i data-lucide="home" class="w-6 h-6 mb-2 text-gray-300"></i>
                             <span class="text-xs sm:text-sm text-gray-300 font-bold">홈</span>
                         </button>
 
-                        <!-- 3. 코디 생성하기: flex-[2] -> flex-1 변경하여 크기 동일화, h-24 적용 -->
+                        3. 코디 생성하기: flex-[2] -> flex-1 변경하여 크기 동일화, h-24 적용
                         <button onclick="goToCreateCoordi()" class="flex-1 min-w-[70px] h-24 flex flex-col items-center justify-center p-2 bg-gray-800/50 hover:bg-indigo-600/50 rounded-xl border border-white/10 transition-all">
                             <i data-lucide="shirt" class="w-6 h-6 mb-2 text-gray-300"></i>
                             <span class="text-xs sm:text-sm text-gray-300 font-bold">코디 생성</span>
                         </button>
 
-                        <!-- 4. 마이페이지: flex-1, h-24 적용 -->
+                        4. 마이페이지: flex-1, h-24 적용
                         <button onclick="navigateTo('mypage')" class="flex-1 min-w-[70px] h-24 flex flex-col items-center justify-center p-2 bg-gray-800/50 hover:bg-indigo-600/50 rounded-xl border border-white/10 transition-all">
                             <i data-lucide="user" class="w-6 h-6 mb-2 text-gray-300"></i>
                             <span class="text-xs sm:text-sm text-gray-300 font-bold">마이페이지</span>
@@ -444,27 +482,27 @@
                         <div class="p-3 text-sm text-center bg-indigo-900/70">Vintage Mood</div>
                     </div>
                 </div>
-                <section class="mt-12">
+                <!-- <section class="mt-12">
                     <div class="flex flex-wrap justify-center items-stretch gap-3 sm:gap-4 max-w-4xl mx-auto">
-                        <!-- 1. 라이브러리: flex-1, h-24 적용 -->
+                        1. 라이브러리: flex-1, h-24 적용
                         <button onclick="navigateTo('results'); setActiveTab('results')" class="flex-1 min-w-[70px] h-24 flex flex-col items-center justify-center p-2 bg-gray-800/50 hover:bg-indigo-600/50 rounded-xl border border-white/10 transition-all">
                             <i data-lucide="library" class="w-6 h-6 mb-2 text-gray-300"></i>
                             <span class="text-xs sm:text-sm text-gray-300 font-bold">라이브러리</span>
                         </button>
 
-                        <!-- 2. 홈: flex-1, h-24 적용 -->
+                        2. 홈: flex-1, h-24 적용
                         <button onclick="navigateTo('trend')" class="flex-1 min-w-[70px] h-24 flex flex-col items-center justify-center p-2 bg-gray-800/50 hover:bg-indigo-600/50 rounded-xl border border-white/10 transition-all">
                             <i data-lucide="home" class="w-6 h-6 mb-2 text-gray-300"></i>
                             <span class="text-xs sm:text-sm text-gray-300 font-bold">홈</span>
                         </button>
 
-                        <!-- 3. 코디 생성하기: flex-[2] -> flex-1 변경하여 크기 동일화, h-24 적용 -->
+                        3. 코디 생성하기: flex-[2] -> flex-1 변경하여 크기 동일화, h-24 적용
                         <button onclick="goToCreateCoordi()" class="flex-1 min-w-[70px] h-24 flex flex-col items-center justify-center p-2 bg-gray-800/50 hover:bg-indigo-600/50 rounded-xl border border-white/10 transition-all">
                             <i data-lucide="shirt" class="w-6 h-6 mb-2 text-gray-300"></i>
                             <span class="text-xs sm:text-sm text-gray-300 font-bold">코디 생성</span>
                         </button>
 
-                        <!-- 4. 마이페이지: flex-1, h-24 적용 -->
+                        4. 마이페이지: flex-1, h-24 적용
                         <button onclick="navigateTo('mypage')" class="flex-1 min-w-[70px] h-24 flex flex-col items-center justify-center p-2 bg-gray-800/50 hover:bg-indigo-600/50 rounded-xl border border-white/10 transition-all">
                             <i data-lucide="user" class="w-6 h-6 mb-2 text-gray-300"></i>
                             <span class="text-xs sm:text-sm text-gray-300 font-bold">마이페이지</span>
@@ -825,14 +863,28 @@
             if (tabIndicator) {
                 tabButtons.forEach(button => {
                     const isActive = button.getAttribute('data-tab') === tabId;
+                    // Remove existing background classes
+                    button.classList.remove('bg-gray-500', 'bg-gray-400', 'bg-gray-300');
+                    button.classList.remove('hover:bg-gray-500'); // Remove hover for inactive states initially
+                    button.classList.add('text-white'); // Ensure text is white
+
                     if (isActive) {
                         const rect = button.getBoundingClientRect();
                         const parentRect = button.closest('#tabs').getBoundingClientRect();
                         tabIndicator.style.left = `${rect.left - parentRect.left}px`;
                         tabIndicator.style.width = `${rect.width}px`;
-                        button.classList.add('text-cyan-400'); 
+                        tabIndicator.style.backgroundColor = '#808080'; // Set line color for active tab
+                        button.classList.add('bg-gray-500'); // Active tab color
                     } else {
-                        button.classList.remove('text-cyan-400');
+                        // Set inactive colors based on data-tab
+                        const dataTab = button.getAttribute('data-tab');
+                        if (dataTab === 'trend-feed') {
+                            button.classList.add('bg-gray-400', 'hover:bg-gray-500'); // OOTD when inactive
+                        } else if (dataTab === 'beginner') {
+                            button.classList.add('bg-gray-400', 'hover:bg-gray-500'); // Beginner when inactive
+                        } else if (dataTab === 'results') {
+                            button.classList.add('bg-gray-300', 'hover:bg-gray-500'); // Trendy when inactive
+                        }
                     }
                 });
             }
