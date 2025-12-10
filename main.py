@@ -8,16 +8,16 @@ import psycopg2
 # .env 파일에서 환경 변수 로드
 load_dotenv()
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='html', static_url_path='')
 # 모든 출처에서의 요청을 허용 (개발 목적으로, 실제 서비스에서는 특정 출처만 허용하도록 변경 권장)
 CORS(app)
 
 # --- 환경 변수 로드 및 검증 ---
-GEMINI_API_KEY = os.getenv("YOAIzaSyCvLevOs3B-NXMDtUNwZhavPBah37XEFm8")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 DB_HOST = os.getenv("DB_HOST", "db_postgresql")
 DB_NAME = os.getenv("DB_NAME", "main_db")
 DB_USER = os.getenv("DB_USER", "admin")
-DB_PASSWORD = os.getenv("admin123") # 비밀번호는 필수
+DB_PASSWORD = os.getenv("DB_PASSWORD") # 비밀번호는 필수
 
 if not GEMINI_API_KEY:
     raise ValueError("GEMINI_API_KEY 환경 변수가 설정되지 않았습니다.")

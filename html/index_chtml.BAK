@@ -57,20 +57,6 @@
             box-shadow: none;
         }
 
-        /* --- 페이지별 섹션 스타일 --- */
-        /* 메인 헤더 배경 */
-        /* .splash-bg {
-            background-color: #1a0033;
-            min-height: 35vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            position: relative;
-            overflow: hidden;
-            background-image: url('../image/main.png');
-            background-size: cover;
-            background-position: center;
-        } */
         /* 헤더 배경 위 텍스트 가독성을 위한 오버레이 */
         .splash-bg::after {
             content: '';
@@ -192,12 +178,6 @@
                 <a href="#" onclick="navigateTo('trend')" class="hover:text-cyan-400">Home</a>
             </nav>
 
-            <!-- 로고 영역 -->
-            <!-- <div class="flex flex-col items-center justify-center h-full my-auto relative z-10"> 
-                <div class="neon-circle-border p-3 w-fit">
-                    <img src="../image/logo2.png" alt="Logo" class="h-24">
-                </div>
-            </div> -->
         </header>
 
         <!-- [수정된 부분] 페이지 이동 버튼 그룹: 모든 버튼 사이즈(flex-1, h-24) 동일하게 통일 -->
@@ -209,11 +189,6 @@
                     <span class="text-xs sm:text-sm text-gray-300 font-bold">라이브러리</span>
                 </button>
 
-                <!-- 2. 홈: flex-1, h-24 적용 -->
-                <!-- <button onclick="navigateTo('trend')" class="flex-1 min-w-[70px] h-24 flex flex-col items-center justify-center p-2 bg-gray-800/50 hover:bg-indigo-600/50 rounded-xl border border-white/10 transition-all"> -->
-                    <!-- <i data-lucide="home" class="w-6 h-6 mb-2 text-gray-300"></i> -->
-                    <!-- <img src="../image/home.png" alt="홈 아이콘" class="w-6 h-6 mb-2 object-contain"> -->
-                    <!-- <span class="text-xs sm:text-sm text-gray-300 font-bold">home</span> -->
                 <button onclick="navigateTo('trend')" class="flex-1 min-w-[70px] h-24 bg-gray-800/50 hover:bg-indigo-600/50 rounded-xl border border-white/10 transition-all overflow-hidden">
 	                <img src="../image/home.png" alt="홈" class="w-full h-full object-cover">
                 </button>
@@ -247,9 +222,6 @@
                                 <button data-tab="beginner" class="tab-button w-full p-3 text-white font-semibold transition-all duration-300 relative rounded-t-xl">Beginner</button>
                                 <div class="absolute z-10 hidden group-hover:block bg-indigo-900/90 border border-cyan-500/50 text-white py-2 rounded-lg shadow-xl w-full mt-1">
                                     <a href="#" class="block px-4 py-2 text-sm hover:bg-cyan-400 hover:text-indigo-900 font-semibold">공사중 입니다.</a>
-                                    <!-- <a href="#" class="block px-4 py-2 text-sm hover:bg-cyan-400 hover:text-indigo-900 font-semibold">초보자</a>
-                                    <a href="#" class="block px-4 py-2 text-sm hover:bg-cyan-400 hover:text-indigo-900 font-semibold">중급자</a>
-                                    <a href="#" class="block px-4 py-2 text-sm hover:bg-cyan-400 hover:text-indigo-900 font-semibold">고급자</a> -->
                                 </div>
                             </div>
 
@@ -333,14 +305,37 @@
                                                     </div>
                                                     <!-- Trending Now Section -->
                                                     <div class="mt-8">
-                                                        <h3 class="text-xl font-bold text-white mb-4">Trending Now</h3>
-                                                            <a href="https://woman.donga.com/fashion" target="_blank" class="block bg-gradient-to-r from-purple-600 to-cyan-500 hover:from-purple-700 hover:to-cyan-600 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-cyan-500/50 p-4 rounded-xl flex items-center justify-between text-white">
+                                                        <h3 class="text-xl font-bold text-gray-800">Feed</h3>
+                                                            <!-- 1. [Modified] 네이버 패션타운 링크 버튼 (회색 배경, 링크 활성화, 줄바꿈 여백 추가) -->
+                                                            <!-- <a href="https://shopping.naver.com/window/main/fashion-group" target="_blank" class="block bg-gray-300 hover:bg-gray-300 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-gray-300/50 p-4 rounded-xl flex items-center justify-between text-black">
                                                                 <div>
-	                                                                <span class="font-bold">트랜디한 패션 정보 및 뉴스[여성동아 패션 채널] 클릭</span>
-	                                                                <span class="block text-sm text-cyan-200 mt-1">https://woman.donga.com/fashion</span>
+                                                                    <span class="block text-sm text-black mb-2">트렌디한 패션 정보 및 뉴스들 게시 예정. 현재 db 연결 안되서 텍스트로 넣었습니다.</span>
+                                                                    <span class="block text-sm text-black mb-2">베이직으로 뉴트럴 톤 (화이트, 베이지, 문빔 그레이, 모카 무스)이 기본이 됩니다. 봄에는 파스텔톤 (베이비 블루, 라벤더, 크리미 옐로우)이 강세입니다</span>
+                                                                    <span class="block text-sm text-black mb-2">생동감을 주는 비비드 블루 스펙트럼 (세룰리안 블루, 딥 블루)과 탠저린(오렌지 계열) 같은 비비드 컬러를 액세서리나 포인트로 활용합니다.</span>
+                                                                    <div class="h-10"></div>        
+                                                                    <span class="block text-sm text-black">[네이버 최신 패션] 클릭</span>
+                                                                    <span class="block text-sm text-cyan-200 mt-1">https://shopping.naver.com/window/main/fashion-group</span>
                                                                 </div>
-                                                                	<i data-lucide="chevron-right" class="w-6 h-6 text-white"></i>
-                                                            </a>                                                                               
+                                                                <i data-lucide="chevron-right" class="w-6 h-6 text-white"></i>
+                                                            </a> -->
+                                                            <!-- 1. [Modified] 네이버 패션타운 텍스트 박스 (버튼에서 수정됨: 링크/아이콘/호버효과 제거) -->
+                                                                <!-- <div class="block bg-gray-600 p-4 rounded-xl shadow-lg text-white">
+                                                                    <div>
+                                                                        <span class="block text-sm text-gray-200 mt-1">트렌디한 패션 정보 및 뉴스들 게시 예정.</span>
+                                                                        <span class="font-bold">[네이버 최신 패션] 클릭</span>
+                                                                        <span class="block text-sm text-cyan-200 mt-1">https://shopping.naver.com/window/main/fashion-group</span>
+                                                                    </div>
+                                                                </div> -->
+                                                            <!-- [Added] 버튼 사이 간격 추가 (2줄 정도의 여백) -->
+                                                            <div class="h-10"></div>
+                                                                <!-- 2. 여성동아 패션 채널 링크 버튼 (보라-시안 그라데이션 배경, 링크 활성화) -->
+                                                            <!-- <a href="https://woman.donga.com/fashion" target="_blank" class="block bg-gradient-to-r from-purple-600 to-cyan-500 hover:from-purple-700 hover:to-cyan-600 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-cyan-500/50 p-4 rounded-xl flex items-center justify-between text-white">
+                                                                <div>
+                                                                    <span class="font-bold">트랜디한 패션 정보 및 뉴스[여성동아 패션 채널] 클릭</span>
+                                                                    <span class="block text-sm text-cyan-200 mt-1">https://woman.donga.com/fashion</span>
+                                                                </div>
+                                                                <i data-lucide="chevron-right" class="w-6 h-6 text-white"></i>
+                                                            </a>                                                                                -->
                                                                                                         </div>                    </div>
 
                     <!-- 탭 2: Create (나만의 AI 코디 생성) -->
